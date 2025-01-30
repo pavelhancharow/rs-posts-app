@@ -14,16 +14,21 @@ class PostList extends Component {
     const { posts, status, error } = this.context;
 
     return (
-      <ul className={style['post-list']}>
+      <div className={style.posts}>
         {status === LoadingStatuses.Pending && <Loader />}
         {status === LoadingStatuses.Rejected && <div>{error}</div>}
+
         {status === LoadingStatuses.Fulfilled &&
           (posts.length ? (
-            posts.map((post) => <PostComponent key={post.id} {...post} />)
+            <ul className={style['posts-list']}>
+              {posts.map((post) => (
+                <PostComponent key={post.id} {...post} />
+              ))}
+            </ul>
           ) : (
             <NoContent />
           ))}
-      </ul>
+      </div>
     );
   }
 }

@@ -1,6 +1,12 @@
-.post-list {
+.posts {
   display: grid;
   place-items: center;
-  overflow-y: auto;
   flex-grow: 1;
+  overflow-y: auto;
+}
+
+.posts-list {
+  align-self: flex-start;
+  display: flex;
+  flex-direction: column;
 }

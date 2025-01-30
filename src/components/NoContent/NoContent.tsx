@@ -7,10 +7,10 @@ class NoContent extends Component {
     const searchTerm = localStorageService.searchTerm;
 
     return (
-      <li className={style['no-content']}>
+      <div className={style['no-content']}>
         No posts found for your search &#34;
         <span className={style['no-content_bold']}>{searchTerm}</span>&#34;
-      </li>
+      </div>
     );
   }
 }
