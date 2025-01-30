@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import './App.css';
 import CustomButton from './components/CustomButton/CustomButton.tsx';
+import SearchBar from './components/SearchBar/SearchBar.tsx';
 import SearchContextProvider from './context/SearchContext.tsx';
 
 interface AppState {
@@ -20,7 +21,7 @@ class App extends Component<object, AppState> {
     return (
       <>
         <SearchContextProvider>
-          <div></div>
+          <SearchBar />
         </SearchContextProvider>
         <CustomButton onClick={this.throwAnError}>Throw An Error</CustomButton>
       </>
