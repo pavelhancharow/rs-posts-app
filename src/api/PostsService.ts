@@ -10,7 +10,7 @@ class PostsService {
   #defaultQueryParams: PostsQueryParams = {
     limit: 30,
     skip: 0,
-    select: ['id', 'title', 'body'],
+    select: ['id', 'title', 'body', 'reactions', 'views'],
   };
 
   async getAll(signal?: AbortSignal): Promise<PostsResponse> {

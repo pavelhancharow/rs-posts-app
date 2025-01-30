@@ -15,18 +15,18 @@ class PostComponent extends Component<PostProps> {
         <div className={style.post__body}>
           <span className={style.post__text}>{this.props.body}</span>
           <div className={style.post__info}>
-            <span className={style.post__info_container}>
+            <div className={style.post__info_container}>
               <img src={EyeIcon} alt="views" />
-              <span>189</span>
-            </span>
-            <span className={style.post__info_container}>
+              <span>{this.props.views}</span>
+            </div>
+            <div className={style.post__info_container}>
               <img src={HeartIcon} alt="likes" />
-              <span>52</span>
-            </span>
-            <span className={style.post__info_container}>
+              <span>{this.props.reactions.likes}</span>
+            </div>
+            <div className={style.post__info_container}>
               <img src={CommentIcon} alt="comments" />
-              <span>78</span>
-            </span>
+              <span>{this.props.reactions.dislikes}</span>
+            </div>
           </div>
         </div>
       </li>
