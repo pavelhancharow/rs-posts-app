@@ -6,9 +6,9 @@ class MainContent extends Component {
   render() {
     return (
       <div className={style.main}>
-        <div>
-          <span>Post Title</span>
-          <span>Post Description</span>
+        <div className={style.main__header}>
+          <span className={style.main__header__title}>Title</span>
+          <span className={style.main__header__body}>Description</span>
         </div>
 
         <PostList />
