@@ -1,6 +1,7 @@
 import { Component, ContextType } from 'react';
 import { SearchContext } from '../../context/SearchContext.tsx';
 import { LoadingStatuses } from '../../enums';
+import ErrorComponent from '../ErrorComponent/ErrorComponent.tsx';
 import Loader from '../Loader/Loader.tsx';
 import NoContent from '../NoContent/NoContent.tsx';
 import PostComponent from '../PostComponent/PostComponent.tsx';
@@ -16,7 +17,7 @@ class PostList extends Component {
     return (
       <div className={style.posts}>
         {status === LoadingStatuses.Pending && <Loader />}
-        {status === LoadingStatuses.Rejected && <div>{error}</div>}
+        {status === LoadingStatuses.Rejected && <ErrorComponent info={error} />}
 
         {status === LoadingStatuses.Fulfilled &&
           (posts.length ? (
