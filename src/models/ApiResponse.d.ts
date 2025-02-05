@@ -1,5 +1,5 @@
 import { Post } from './Post';
-import { FullPost } from './FullPost';
+import { FullPostCard } from './FullPostCard';
 
 interface BaseResponse {
   total: number;
@@ -8,7 +8,7 @@ interface BaseResponse {
 }
 
 export type TypePosts = { posts: Post[] };
-export type TypeComments = Pick<FullPost, 'comments'>;
+export type TypeComments = Pick<FullPostCard, 'comments'>;
 
 type ApiResponse<T> = BaseResponse & T;
 type ResponseTypes = TypePosts | TypeComments;

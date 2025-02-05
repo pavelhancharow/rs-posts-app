@@ -4,4 +4,4 @@ export * from './ApiResponse';
 export * from './QueryParams';
 export * from './User';
 export * from './Comment';
-export * from './FullPost';
+export * from './FullPostCard';
