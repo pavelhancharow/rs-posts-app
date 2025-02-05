@@ -1,34 +1,19 @@
-import { Component } from 'react';
+import { lazy, Suspense } from 'react';
+import { Route, Routes } from 'react-router';
+import Loader from './components/Loader/Loader.tsx';
 import './App.css';
-import MainContent from './components/MainContent/MainContent.tsx';
-import CustomButton from './components/CustomButton/CustomButton.tsx';
-import SearchBar from './components/SearchBar/SearchBar.tsx';
-import SearchContextProvider from './context/SearchContext.tsx';
 
-interface AppState {
-  triggerError: boolean;
-}
+const PostsPage = lazy(() => import('./pages/PostsPage.tsx'));
 
-class App extends Component<object, AppState> {
-  state: AppState = { triggerError: false };
-
-  throwAnError = () => {
-    this.setState((state) => ({ ...state, triggerError: true }));
-  };
-
-  render() {
-    if (this.state.triggerError) throw new Error('Error during button click!');
-
-    return (
-      <>
-        <SearchContextProvider>
-          <SearchBar />
-          <MainContent />
-        </SearchContextProvider>
-        <CustomButton onClick={this.throwAnError}>Throw An Error</CustomButton>
-      </>
-    );
-  }
+function App() {
+  return (
+    <Suspense fallback={<Loader />}>
+      <Routes>
+        <Route path="/posts" element={<PostsPage />} />
+        <Route path="*" element={<div>Not Found</div>} />
+      </Routes>
+    </Suspense>
+  );
 }
 
 export default App;
