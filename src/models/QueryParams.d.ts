@@ -1,6 +1,6 @@
 import { Post } from './Post';
 import { User } from './User';
-import { BaseResponse } from './PostsResponse';
+import { BaseResponse } from './ApiResponse';
 
 export interface PostsQueryParams extends Pick<BaseResponse, 'limit' | 'skip'> {
   select: Required<Array<keyof Post>>;
