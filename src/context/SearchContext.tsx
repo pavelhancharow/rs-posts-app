@@ -1,9 +1,13 @@
-import { Component, createContext, Dispatch, ReactNode } from 'react';
+import {
+  createContext,
+  Dispatch,
+  ReactNode,
+  useEffect,
+  useReducer,
+} from 'react';
 import { localStorageService, postsService } from '../api';
 import { LoadingStatuses } from '../enums';
 import { Post } from '../models';
-
-type AbortControllerType = { current: AbortController | null };
 
 interface SearchContextState {
   posts: Array<Post>;
@@ -34,92 +38,79 @@ interface SearchContextProps {
   children: ReactNode;
 }
 
-class SearchContextProvider extends Component<
-  SearchContextProps,
-  SearchContextState
-> {
-  controller: AbortControllerType = { current: null };
-  state: SearchContextState = { ...initialState };
+function SearchContextProvider(props: SearchContextProps) {
+  const [state, dispatch] = useReducer(reducer, initialState);
 
-  componentDidMount() {
-    if (this.state.status === LoadingStatuses.Idle) {
-      this.controller.current = new AbortController();
-      const signal = this.controller.current.signal;
+  useEffect(() => {
+    const controller = new AbortController();
+    const signal = controller.signal;
 
-      const searchedTerm = localStorageService.searchTerm;
+    const searchedTerm = localStorageService.searchTerm;
 
-      this.dispatch({ type: LoadingStatuses.Pending });
+    dispatch({ type: LoadingStatuses.Pending });
 
-      const result = searchedTerm
-        ? postsService.getPostsBySearchValue(searchedTerm, signal)
-        : postsService.getAllPosts(signal);
+    const result = searchedTerm
+      ? postsService.getPostsBySearchValue(searchedTerm, signal)
+      : postsService.getAllPosts(signal);
 
-      result
-        .then((data) => {
-          this.dispatch({
-            type: LoadingStatuses.Fulfilled,
-            payload: data.posts,
+    result
+      .then((data) => {
+        dispatch({
+          type: LoadingStatuses.Fulfilled,
+          payload: data.posts,
+        });
+      })
+      .catch((e: Error) => {
+        if (signal.aborted) {
+          console.info(e?.message);
+        } else {
+          dispatch({
+            type: LoadingStatuses.Rejected,
+            payload: e.message,
           });
-        })
-        .catch((e: Error) => {
-          if (signal.aborted) {
-            console.info(e?.message);
-          } else {
-            this.dispatch({
-              type: LoadingStatuses.Rejected,
-              payload: e.message,
-            });
-          }
-        });
-    }
-  }
+        }
+      });
 
-  componentWillUnmount() {
-    this.controller.current?.abort({
-      message:
-        '\x1B[34mAbortController:\x1B[30m Fetching data has been aborted',
-    });
-    this.dispatch({ type: LoadingStatuses.Idle });
-  }
+    return () => {
+      controller.abort({
+        message:
+          '\x1B[34mAbortController:\x1B[30m Fetching data has been aborted',
+      });
+    };
+  }, []);
 
-  dispatch = (action: DispatchActionType) => {
-    switch (action.type) {
-      case LoadingStatuses.Pending:
-        this.setState((prevState) => ({
-          ...prevState,
-          status: LoadingStatuses.Pending,
-        }));
-        break;
-      case LoadingStatuses.Fulfilled:
-        this.setState({
-          status: LoadingStatuses.Fulfilled,
-          error: null,
-          posts: action.payload as Post[],
-        });
-        break;
-      case LoadingStatuses.Rejected:
-        this.setState({
-          posts: [],
-          status: LoadingStatuses.Rejected,
-          error: action.payload as string,
-        });
-        break;
-      default:
-        this.setState({ posts: [], status: LoadingStatuses.Idle, error: null });
-        break;
-    }
-  };
-
-  render() {
-    return (
-      <SearchContext.Provider value={this.state}>
-        <SearchDispatchContext.Provider value={this.dispatch}>
-          {this.props.children}
-        </SearchDispatchContext.Provider>
-      </SearchContext.Provider>
-    );
-  }
+  return (
+    <SearchContext.Provider value={state}>
+      <SearchDispatchContext.Provider value={dispatch}>
+        {props.children}
+      </SearchDispatchContext.Provider>
+    </SearchContext.Provider>
+  );
 }
+
+const reducer = (state: SearchContextState, action: DispatchActionType) => {
+  switch (action.type) {
+    case LoadingStatuses.Pending:
+      return {
+        ...state,
+        status: LoadingStatuses.Pending,
+      };
+    case LoadingStatuses.Fulfilled:
+      return {
+        status: LoadingStatuses.Fulfilled,
+        error: null,
+        posts: action.payload as Post[],
+      };
+    case LoadingStatuses.Rejected:
+      return {
+        posts: [],
+        status: LoadingStatuses.Rejected,
+        error: action.payload as string,
+      };
+    default:
+      return { posts: [], status: LoadingStatuses.Idle, error: null };
+  }
+};
 
 export default SearchContextProvider;
 
