@@ -1,4 +1,4 @@
-.post {
+.post-preview {
   display: flex;
   border-bottom: 1px solid var(--gray-400);
   padding: 20px 0;
@@ -7,33 +7,33 @@
   transition: background-color 0.1s ease-in-out;
 }
 
-.post:hover {
+.post-preview:hover {
   background-color: rgb(from var(--peach-200) r g b / 30%);
   cursor: pointer;
 }
 
-.post__title {
+.post-preview__title {
   width: 30%;
   font-weight: 500;
 }
 
-.post__body {
+.post-preview__description {
   width: 70%;
   display: flex;
   flex-direction: column;
   gap: 7px;
 }
 
-.post__text {
+.post-preview__body {
   text-align: left;
 }
 
-.post__info {
+.post-preview__info {
   display: flex;
   gap: 7px;
 }
 
-.post__info_container {
+.post-preview__info_container {
   display: flex;
   align-items: center;
   gap: 5px;

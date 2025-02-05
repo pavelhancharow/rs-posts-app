@@ -1,19 +1,19 @@
 import { ReactNode } from 'react';
 import { useSearchParams } from 'react-router';
-import style from './MainContent.module.css';
+import style from './PostsListUI.module.css';
 
 interface MainContentProps {
   left: ReactNode;
   right: ReactNode;
 }
 
-function MainContent(props: MainContentProps) {
+function PostsListUI(props: MainContentProps) {
   const [searchParams] = useSearchParams();
   const details = searchParams.get('details');
 
   return (
-    <div className={style['posts-list_wrapper']}>
-      <div className={style['posts-list']} data-details={!!details}>
+    <div className={style['posts-list__main']}>
+      <div className={style['posts-list__wrapper']} data-details={!!details}>
         <div className={style['posts-list__header']}>
           <span className={style['posts-list__header__title']}>Title</span>
           <span className={style['posts-list__header__description']}>
@@ -28,4 +28,4 @@ function MainContent(props: MainContentProps) {
   );
 }
 
-export default MainContent;
+export default PostsListUI;

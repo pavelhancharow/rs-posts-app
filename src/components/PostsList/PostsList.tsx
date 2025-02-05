@@ -5,10 +5,10 @@ import { LoadingStatuses } from '../../enums';
 import ErrorComponent from '../ErrorComponent/ErrorComponent.tsx';
 import Loader from '../Loader/Loader.tsx';
 import NoContent from '../NoContent/NoContent.tsx';
-import PostComponent from '../PostComponent/PostComponent.tsx';
-import style from './PostList.module.css';
+import PostPreview from '../PostPreview/PostPreview.tsx';
+import style from './PostsList.module.css';
 
-function PostList() {
+function PostsList() {
   const context = useContext(SearchContext);
   const navigate = useNavigate();
 
@@ -33,7 +33,7 @@ function PostList() {
         (context.posts.length ? (
           <ul className={style['posts-list__body__ul']}>
             {context.posts.map((post) => (
-              <PostComponent key={post.id} {...post} onClick={handleClick} />
+              <PostPreview key={post.id} {...post} onClick={handleClick} />
             ))}
           </ul>
         ) : (
@@ -43,4 +43,4 @@ function PostList() {
   );
 }
 
-export default PostList;
+export default PostsList;

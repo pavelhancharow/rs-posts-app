@@ -1,10 +1,10 @@
-.posts-list_wrapper {
+.posts-list__main {
   display: flex;
   gap: 10px;
   width: 100%;
 }
 
-.posts-list {
+.posts-list__wrapper {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -18,7 +18,7 @@
   transition: flex 0.1s ease;
 }
 
-.posts-list[data-details='true'] {
+.posts-list__wrapper[data-details='true'] {
   flex: 0 1 70%;
 }
 

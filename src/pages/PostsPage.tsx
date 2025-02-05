@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Outlet } from 'react-router';
 import CustomButton from '../components/CustomButton/CustomButton.tsx';
-import MainContent from '../components/MainContent/MainContent.tsx';
-import PostList from '../components/PostList/PostList.tsx';
+import PostsListUI from '../components/PostsListUI/PostsListUI.tsx';
+import PostsList from '../components/PostsList/PostsList.tsx';
 import SearchBar from '../components/SearchBar/SearchBar.tsx';
 import SearchContextProvider from '../context/SearchContext.tsx';
 
@@ -23,7 +23,7 @@ function PostsPage() {
     <>
       <SearchContextProvider>
         <SearchBar />
-        <MainContent left={<PostList />} right={<Outlet />} />
+        <PostsListUI left={<PostsList />} right={<Outlet />} />
       </SearchContextProvider>
       <CustomButton onClick={throwAnError}>Throw An Error</CustomButton>
     </>
