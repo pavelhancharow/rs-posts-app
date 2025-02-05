@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { FullPostContext } from '../../context/FullPostContextProvider.tsx';
+import { FullPostContext } from '../../context/FullPostContext.tsx';
 import { LoadingStatuses } from '../../enums';
 import ErrorComponent from '../ErrorComponent/ErrorComponent.tsx';
 import Loader from '../Loader/Loader.tsx';

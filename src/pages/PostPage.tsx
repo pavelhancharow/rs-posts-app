@@ -1,6 +1,6 @@
 import FullPost from '../components/FullPost/FullPost.tsx';
 import FullPostUI from '../components/FullPostUI/FullPostUI.tsx';
-import FullPostContextProvider from '../context/FullPostContextProvider.tsx';
+import FullPostContextProvider from '../context/FullPostContext.tsx';
 
 function PostPage() {
   return (
