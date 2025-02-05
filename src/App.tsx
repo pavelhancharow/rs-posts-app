@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react';
-import { Route, Routes } from 'react-router';
+import { Navigate, Route, Routes } from 'react-router';
 import Loader from './components/Loader/Loader.tsx';
 import { withQueryParam } from './helpers';
 import './App.css';
@@ -13,6 +13,7 @@ function App() {
   return (
     <Suspense fallback={<Loader />}>
       <Routes>
+        <Route path="/" element={<Navigate to="/posts" />} />
         <Route path="/posts" element={<PostsPage />}>
           <Route path="" element={<FullPostPage />} />
         </Route>

@@ -8,7 +8,7 @@ import './index.css';
 
 createRoot(document.getElementById('root') as HTMLElement).render(
   <StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename="/">
       <ErrorBoundary FallbackComponent={Fallback}>
         <App />
       </ErrorBoundary>
