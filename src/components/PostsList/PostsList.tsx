@@ -1,6 +1,6 @@
 import { useContext, MouseEvent } from 'react';
 import { useNavigate } from 'react-router';
-import { SearchContext } from '../../context/SearchContext.tsx';
+import { PostsListContext } from '../../context/PostsListContext.tsx';
 import { LoadingStatuses } from '../../enums';
 import ErrorComponent from '../ErrorComponent/ErrorComponent.tsx';
 import Loader from '../Loader/Loader.tsx';
@@ -9,7 +9,7 @@ import PostPreview from '../PostPreview/PostPreview.tsx';
 import style from './PostsList.module.css';
 
 function PostsList() {
-  const context = useContext(SearchContext);
+  const context = useContext(PostsListContext);
   const navigate = useNavigate();
 
   function handleClick(e: MouseEvent<HTMLLIElement>) {

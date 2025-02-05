@@ -9,13 +9,13 @@ import { localStorageService, postsService } from '../api';
 import { LoadingStatuses } from '../enums';
 import { Post } from '../models';
 
-interface SearchContextState {
+interface PostsListContextState {
   posts: Array<Post>;
   error: string | null;
   status: LoadingStatuses;
 }
 
-const initialState: SearchContextState = {
+const initialState: PostsListContextState = {
   posts: [],
   status: LoadingStatuses.Idle,
   error: null,
@@ -26,19 +26,19 @@ type DispatchActionType = {
   payload?: string | Array<Post>;
 };
 
-const SearchContext = createContext<SearchContextState>({
+const PostsListContext = createContext<PostsListContextState>({
   ...initialState,
 });
 
-const SearchDispatchContext = createContext<Dispatch<DispatchActionType>>(
+const PostsListDispatchContext = createContext<Dispatch<DispatchActionType>>(
   () => {}
 );
 
-interface SearchContextProps {
+interface PostsListContextProps {
   children: ReactNode;
 }
 
-function SearchContextProvider(props: SearchContextProps) {
+function PostsListContextProvider(props: PostsListContextProps) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
@@ -80,15 +80,15 @@ function SearchContextProvider(props: SearchContextProps) {
   }, []);
 
   return (
-    <SearchContext.Provider value={state}>
-      <SearchDispatchContext.Provider value={dispatch}>
+    <PostsListContext.Provider value={state}>
+      <PostsListDispatchContext.Provider value={dispatch}>
         {props.children}
-      </SearchDispatchContext.Provider>
-    </SearchContext.Provider>
+      </PostsListDispatchContext.Provider>
+    </PostsListContext.Provider>
   );
 }
 
-const reducer = (state: SearchContextState, action: DispatchActionType) => {
+const reducer = (state: PostsListContextState, action: DispatchActionType) => {
   switch (action.type) {
     case LoadingStatuses.Pending:
       return {
@@ -112,6 +112,6 @@ const reducer = (state: SearchContextState, action: DispatchActionType) => {
   }
 };
 
-export default SearchContextProvider;
+export default PostsListContextProvider;
 
-export { SearchContext, SearchDispatchContext };
+export { PostsListContext, PostsListDispatchContext };

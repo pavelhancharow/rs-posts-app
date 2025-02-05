@@ -4,7 +4,7 @@ import CustomButton from '../components/CustomButton/CustomButton.tsx';
 import PostsListUI from '../components/PostsListUI/PostsListUI.tsx';
 import PostsList from '../components/PostsList/PostsList.tsx';
 import SearchBar from '../components/SearchBar/SearchBar.tsx';
-import SearchContextProvider from '../context/SearchContext.tsx';
+import PostsListContextProvider from '../context/PostsListContext.tsx';
 
 interface PostsPageState {
   triggerError: boolean;
@@ -21,10 +21,10 @@ function PostsPage() {
 
   return (
     <>
-      <SearchContextProvider>
+      <PostsListContextProvider>
         <SearchBar />
         <PostsListUI left={<PostsList />} right={<Outlet />} />
-      </SearchContextProvider>
+      </PostsListContextProvider>
       <CustomButton onClick={throwAnError}>Throw An Error</CustomButton>
     </>
   );

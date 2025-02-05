@@ -2,16 +2,16 @@ import { Component, ContextType, createRef, FormEvent } from 'react';
 import { localStorageService, postsService } from '../../api';
 import SearchIcon from '../../assets/search.svg';
 import {
-  SearchContext,
-  SearchDispatchContext,
-} from '../../context/SearchContext.tsx';
+  PostsListContext,
+  PostsListDispatchContext,
+} from '../../context/PostsListContext.tsx';
 import { ButtonTypes, LoadingStatuses } from '../../enums';
 import CustomButton from '../CustomButton/CustomButton.tsx';
 import styles from './SearchBar.module.css';
 
 class SearchBar extends Component {
-  static contextType = SearchDispatchContext;
-  declare context: ContextType<typeof SearchDispatchContext>;
+  static contextType = PostsListDispatchContext;
+  declare context: ContextType<typeof PostsListDispatchContext>;
   ref = createRef<HTMLInputElement>();
 
   handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -60,7 +60,7 @@ class SearchBar extends Component {
           />
         </label>
 
-        <SearchContext.Consumer>
+        <PostsListContext.Consumer>
           {(state) => (
             <CustomButton
               type={ButtonTypes.Submit}
@@ -69,7 +69,7 @@ class SearchBar extends Component {
               Search
             </CustomButton>
           )}
-        </SearchContext.Consumer>
+        </PostsListContext.Consumer>
       </form>
     );
   }
