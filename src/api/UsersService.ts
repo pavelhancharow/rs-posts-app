@@ -1,4 +1,4 @@
-import { fetchFromApi, getQueryParams } from '../helpers';
+import { fetchFromApi, getURLSearchParams } from '../helpers';
 import { FetchResponse, User, UserQueryParams } from '../models';
 
 class UsersService {
@@ -13,7 +13,7 @@ class UsersService {
     userId: string | number,
     signal?: AbortSignal
   ): Promise<FetchResponse<User>> {
-    const params = getQueryParams(this.#defaultQueryParams);
+    const params = getURLSearchParams(this.#defaultQueryParams);
 
     return await fetchFromApi(
       `${this.#endpoints.users}/${userId}?${params}`,

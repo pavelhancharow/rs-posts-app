@@ -1,4 +1,4 @@
-import { fetchFromApi, getQueryParams } from '../helpers';
+import { fetchFromApi, getURLSearchParams } from '../helpers';
 import { FetchResponse, Post, PostsQueryParams, TypePosts } from '../models';
 
 class PostsService {
@@ -13,7 +13,7 @@ class PostsService {
   };
 
   async getAllPosts(signal?: AbortSignal): Promise<FetchResponse<TypePosts>> {
-    const params = getQueryParams(this.#defaultQueryParams);
+    const params = getURLSearchParams(this.#defaultQueryParams);
 
     return await fetchFromApi(`${this.#endpoints.posts}?${params}`, signal);
   }
@@ -29,7 +29,7 @@ class PostsService {
     searchValue: string,
     signal?: AbortSignal
   ): Promise<FetchResponse<TypePosts>> {
-    const params = getQueryParams({
+    const params = getURLSearchParams({
       ...this.#defaultQueryParams,
       q: searchValue,
     });
