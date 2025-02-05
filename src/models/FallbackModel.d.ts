@@ -1,4 +1,4 @@
-export interface FallbackProps {
+export interface FallbackModel {
   error: Error;
   componentStack: string;
 }

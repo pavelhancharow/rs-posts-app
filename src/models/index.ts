@@ -1,5 +1,5 @@
 export * from './Post';
-export * from './FallbackProps';
+export * from './FallbackModel';
 export * from './ApiResponse';
 export * from './QueryParams';
 export * from './User';
