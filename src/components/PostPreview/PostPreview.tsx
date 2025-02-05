@@ -19,7 +19,12 @@ function PostPreview(props: PostPreviewProps) {
       <h4 className={style['post-preview__title']}>{props.title}</h4>
 
       <div className={style['post-preview__description']}>
-        <p className={style['post-preview__body']}>{props.body}</p>
+        <p className={style['post-preview__body']}>
+          {props.body}{' '}
+          {props.tags?.length > 0 && (
+            <span>{props.tags.map((tag) => `#${tag}`).join(' ')}</span>
+          )}
+        </p>
 
         <div className={style['post-preview__info']}>
           <div className={style['post-preview__info_container']}>

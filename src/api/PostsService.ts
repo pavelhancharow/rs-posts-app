@@ -9,7 +9,7 @@ class PostsService {
   #defaultQueryParams: PostsQueryParams = {
     limit: 30,
     skip: 0,
-    select: ['id', 'title', 'body', 'reactions', 'views', 'userId'],
+    select: ['id', 'title', 'body', 'reactions', 'tags', 'views', 'userId'],
   };
 
   async getAllPosts(signal?: AbortSignal): Promise<FetchResponse<TypePosts>> {

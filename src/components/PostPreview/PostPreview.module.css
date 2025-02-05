@@ -28,6 +28,10 @@
   text-align: left;
 }
 
+.post-preview__body > span {
+  color: var(--blue-600);
+}
+
 .post-preview__info {
   display: flex;
   gap: 7px;
