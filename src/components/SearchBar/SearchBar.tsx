@@ -6,7 +6,6 @@ import {
   SearchDispatchContext,
 } from '../../context/SearchContext.tsx';
 import { ButtonTypes, LoadingStatuses } from '../../enums';
-import { PostsResponse } from '../../models';
 import CustomButton from '../CustomButton/CustomButton.tsx';
 import styles from './SearchBar.module.css';
 
@@ -24,9 +23,9 @@ class SearchBar extends Component {
 
       localStorageService.searchTerm = searchValue;
 
-      const response: PostsResponse = searchValue
-        ? await postsService.getBy(searchValue)
-        : await postsService.getAll();
+      const response = searchValue
+        ? await postsService.getPostsBySearchValue(searchValue)
+        : await postsService.getAllPosts();
 
       this.context({
         type: LoadingStatuses.Fulfilled,

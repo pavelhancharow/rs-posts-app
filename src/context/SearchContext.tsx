@@ -51,8 +51,8 @@ class SearchContextProvider extends Component<
       this.dispatch({ type: LoadingStatuses.Pending });
 
       const result = searchedTerm
-        ? postsService.getBy(searchedTerm, signal)
-        : postsService.getAll(signal);
+        ? postsService.getPostsBySearchValue(searchedTerm, signal)
+        : postsService.getAllPosts(signal);
 
       result
         .then((data) => {

@@ -1,8 +1,7 @@
-import { getQueryParams } from '../helpers';
-import { PostsQueryParams, PostsResponse } from '../models';
+import { fetchFromApi, getQueryParams } from '../helpers';
+import { FetchResponse, Post, PostsQueryParams, TypePosts } from '../models';
 
 class PostsService {
-  #link = 'https://dummyjson.com';
   #endpoints = {
     posts: '/posts',
     search: '/posts/search',
@@ -10,35 +9,32 @@ class PostsService {
   #defaultQueryParams: PostsQueryParams = {
     limit: 30,
     skip: 0,
-    select: ['id', 'title', 'body', 'reactions', 'views'],
+    select: ['id', 'title', 'body', 'reactions', 'views', 'userId'],
   };
 
-  async getAll(signal?: AbortSignal): Promise<PostsResponse> {
-    const params = getQueryParams({ ...this.#defaultQueryParams });
+  async getAllPosts(signal?: AbortSignal): Promise<FetchResponse<TypePosts>> {
+    const params = getQueryParams(this.#defaultQueryParams);
 
-    const response = await fetch(
-      `${this.#link}${this.#endpoints.posts}?${params}`,
-      { signal }
-    );
-
-    return await response.json();
+    return await fetchFromApi(`${this.#endpoints.posts}?${params}`, signal);
   }
 
-  async getBy(
+  async getPostById(
+    postId: string | number,
+    signal?: AbortSignal
+  ): Promise<FetchResponse<Post>> {
+    return await fetchFromApi(`${this.#endpoints.posts}/${postId}`, signal);
+  }
+
+  async getPostsBySearchValue(
     searchValue: string,
     signal?: AbortSignal
-  ): Promise<PostsResponse> {
+  ): Promise<FetchResponse<TypePosts>> {
     const params = getQueryParams({
       ...this.#defaultQueryParams,
       q: searchValue,
     });
 
-    const response = await fetch(
-      `${this.#link}${this.#endpoints.search}?${params}`,
-      { signal }
-    );
-
-    return await response.json();
+    return await fetchFromApi(`${this.#endpoints.search}?${params}`, signal);
   }
 }
 
