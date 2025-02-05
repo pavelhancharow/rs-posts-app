@@ -1,4 +1,4 @@
-import { Component, ContextType, createRef, FormEvent } from 'react';
+import { FormEvent, useContext, useRef } from 'react';
 import { localStorageService, postsService } from '../../api';
 import SearchIcon from '../../assets/search.svg';
 import {
@@ -9,17 +9,18 @@ import { ButtonTypes, LoadingStatuses } from '../../enums';
 import CustomButton from '../CustomButton/CustomButton.tsx';
 import styles from './SearchBar.module.css';
 
-class SearchBar extends Component {
-  static contextType = PostsListDispatchContext;
-  declare context: ContextType<typeof PostsListDispatchContext>;
-  ref = createRef<HTMLInputElement>();
+function SearchBar() {
+  const context = useContext(PostsListContext);
+  const dispatch = useContext(PostsListDispatchContext);
+  const ref = useRef<HTMLInputElement>(null);
+  const defaultValue = localStorageService.searchTerm;
 
-  handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const searchValue = this.ref.current?.value.trim() as string;
+    const searchValue = ref.current?.value.trim() as string;
 
     try {
-      this.context({ type: LoadingStatuses.Pending });
+      dispatch({ type: LoadingStatuses.Pending });
 
       localStorageService.searchTerm = searchValue;
 
@@ -27,52 +28,44 @@ class SearchBar extends Component {
         ? await postsService.getPostsBySearchValue(searchValue)
         : await postsService.getAllPosts();
 
-      this.context({
+      dispatch({
         type: LoadingStatuses.Fulfilled,
         payload: response.posts,
       });
     } catch (e) {
-      this.context({
+      dispatch({
         type: LoadingStatuses.Rejected,
         payload: (e as Error).message,
       });
     }
   };
 
-  render() {
-    const defaultValue = localStorageService.searchTerm;
+  return (
+    <form onSubmit={handleSubmit} className={styles.form}>
+      <label htmlFor="search" className={styles.form__label}>
+        <img
+          src={SearchIcon}
+          alt="search icon"
+          className={styles.form__image}
+        />
+        <input
+          type="text"
+          name="search"
+          ref={ref}
+          placeholder="Search"
+          defaultValue={defaultValue}
+          className={styles.form__input}
+        />
+      </label>
 
-    return (
-      <form onSubmit={this.handleSubmit} className={styles.form}>
-        <label htmlFor="search" className={styles.form__label}>
-          <img
-            src={SearchIcon}
-            alt="search icon"
-            className={styles.form__image}
-          />
-          <input
-            type="text"
-            name="search"
-            ref={this.ref}
-            placeholder="Search"
-            defaultValue={defaultValue}
-            className={styles.form__input}
-          />
-        </label>
-
-        <PostsListContext.Consumer>
-          {(state) => (
-            <CustomButton
-              type={ButtonTypes.Submit}
-              disabled={state.status === LoadingStatuses.Pending}
-            >
-              Search
-            </CustomButton>
-          )}
-        </PostsListContext.Consumer>
-      </form>
-    );
-  }
+      <CustomButton
+        type={ButtonTypes.Submit}
+        disabled={context.status === LoadingStatuses.Pending}
+      >
+        Search
+      </CustomButton>
+    </form>
+  );
 }
 
 export default SearchBar;
