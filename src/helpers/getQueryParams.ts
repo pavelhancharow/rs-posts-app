@@ -1,19 +1,13 @@
-import { PostsQueryParams } from '../models';
+import { PostsQueryParams, UserQueryParams } from '../models';
 
-type QueryTypes = PostsQueryParams;
+type QueryParamsTypes = PostsQueryParams | UserQueryParams;
 
-export function getQueryParams(query: QueryTypes) {
-  const params: string[] = [];
+export function getQueryParams(queryParams: QueryParamsTypes) {
+  const params = new URLSearchParams();
 
-  for (const key in query) {
-    const value = query[key as keyof QueryTypes];
+  Object.entries(queryParams).forEach(([key, value]) => {
+    params.append(key, value);
+  });
 
-    if (value instanceof Array) {
-      params.push(`${key}=${value.join(',')}`);
-    } else {
-      params.push(`${key}=${value}`);
-    }
-  }
-
-  return params.join('&');
+  return params;
 }
