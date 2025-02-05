@@ -73,7 +73,7 @@ input::placeholder {
 }
 
 button {
-  border-radius: 20px;
+  border-radius: 8px;
   padding: 0.65em 1.8em;
   font-weight: var(--font-weight-50);
   background-color: var(--blue-600);
