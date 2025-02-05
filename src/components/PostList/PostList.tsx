@@ -1,4 +1,5 @@
-import { Component, ContextType } from 'react';
+import { useContext, MouseEvent } from 'react';
+import { useNavigate } from 'react-router';
 import { SearchContext } from '../../context/SearchContext.tsx';
 import { LoadingStatuses } from '../../enums';
 import ErrorComponent from '../ErrorComponent/ErrorComponent.tsx';
@@ -7,31 +8,39 @@ import NoContent from '../NoContent/NoContent.tsx';
 import PostComponent from '../PostComponent/PostComponent.tsx';
 import style from './PostList.module.css';
 
-class PostList extends Component {
-  static contextType = SearchContext;
-  declare context: ContextType<typeof SearchContext>;
+function PostList() {
+  const context = useContext(SearchContext);
+  const navigate = useNavigate();
 
-  render() {
-    const { posts, status, error } = this.context;
+  function handleClick(e: MouseEvent<HTMLLIElement>) {
+    const postId = +e.currentTarget.id;
+    const post = context.posts.find((post) => post.id === postId);
 
-    return (
-      <div className={style.posts}>
-        {status === LoadingStatuses.Pending && <Loader />}
-        {status === LoadingStatuses.Rejected && <ErrorComponent info={error} />}
+    if (!post) return;
 
-        {status === LoadingStatuses.Fulfilled &&
-          (posts.length ? (
-            <ul className={style['posts-list']}>
-              {posts.map((post) => (
-                <PostComponent key={post.id} {...post} />
-              ))}
-            </ul>
-          ) : (
-            <NoContent />
-          ))}
-      </div>
-    );
+    const state = { userId: post.userId };
+    navigate(`/posts?details=${postId}`, { state });
   }
+
+  return (
+    <div className={style['posts-list__body']}>
+      {context.status === LoadingStatuses.Pending && <Loader />}
+      {context.status === LoadingStatuses.Rejected && (
+        <ErrorComponent info={context.error} />
+      )}
+
+      {context.status === LoadingStatuses.Fulfilled &&
+        (context.posts.length ? (
+          <ul className={style['posts-list__body__ul']}>
+            {context.posts.map((post) => (
+              <PostComponent key={post.id} {...post} onClick={handleClick} />
+            ))}
+          </ul>
+        ) : (
+          <NoContent />
+        ))}
+    </div>
+  );
 }
 
 export default PostList;

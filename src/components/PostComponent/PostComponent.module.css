@@ -4,6 +4,12 @@
   padding: 20px 0;
   align-items: center;
   gap: 10px;
+  transition: background-color 0.1s ease-in-out;
+}
+
+.post:hover {
+  background-color: rgb(from var(--peach-200) r g b / 30%);
+  cursor: pointer;
 }
 
 .post__title {
