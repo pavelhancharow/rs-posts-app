@@ -19,7 +19,7 @@
   --font-size-main: 16px;
   --line-height-main: 1.5;
   --font-weight-main: 400;
-  --color-main: var(--gray-50);
+  --color-main: var(--gray-400);
   --background-main: var(--purple-600);
 
   font-synthesis: none;
@@ -79,6 +79,7 @@ button {
   background-color: var(--blue-600);
   cursor: pointer;
   transition: background-color 0.25s;
+  color: var(--gray-50);
 }
 
 button:disabled {
