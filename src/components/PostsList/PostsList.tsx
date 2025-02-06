@@ -14,7 +14,7 @@ function PostsList() {
 
   function handleClick(e: MouseEvent<HTMLLIElement>) {
     const postId = +e.currentTarget.id;
-    const post = context.posts.find((post) => post.id === postId);
+    const post = context.data.posts.find((post) => post.id === postId);
 
     if (!post) return;
 
@@ -30,9 +30,9 @@ function PostsList() {
       )}
 
       {context.status === LoadingStatuses.Fulfilled &&
-        (context.posts.length ? (
+        (context.data.posts.length ? (
           <ul className={style['posts-list__body__ul']}>
-            {context.posts.map((post) => (
+            {context.data.posts.map((post) => (
               <PostPreview key={post.id} {...post} onClick={handleClick} />
             ))}
           </ul>

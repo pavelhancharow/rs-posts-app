@@ -30,7 +30,7 @@ function SearchBar() {
 
       dispatch({
         type: LoadingStatuses.Fulfilled,
-        payload: response.posts,
+        payload: response,
       });
     } catch (e) {
       dispatch({

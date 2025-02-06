@@ -7,23 +7,28 @@ import {
 } from 'react';
 import { localStorageService, postsService } from '../api';
 import { LoadingStatuses } from '../enums';
-import { Post } from '../models';
+import { ApiResponse, TypePosts } from '../models';
 
 interface PostsListContextState {
-  posts: Array<Post>;
+  data: ApiResponse<TypePosts>;
   error: string | null;
   status: LoadingStatuses;
 }
 
 const initialState: PostsListContextState = {
-  posts: [],
+  data: {
+    total: 0,
+    skip: 0,
+    limit: 25,
+    posts: [],
+  },
   status: LoadingStatuses.Idle,
   error: null,
 };
 
 type DispatchActionType = {
   type: LoadingStatuses;
-  payload?: string | Array<Post>;
+  payload?: string | ApiResponse<TypePosts>;
 };
 
 const PostsListContext = createContext<PostsListContextState>({
@@ -54,10 +59,10 @@ function PostsListContextProvider(props: PostsListContextProps) {
       : postsService.getAllPosts(signal);
 
     result
-      .then((data) => {
+      .then((response) => {
         dispatch({
           type: LoadingStatuses.Fulfilled,
-          payload: data.posts,
+          payload: response,
         });
       })
       .catch((e: Error) => {
@@ -88,7 +93,10 @@ function PostsListContextProvider(props: PostsListContextProps) {
   );
 }
 
-const reducer = (state: PostsListContextState, action: DispatchActionType) => {
+const reducer = (
+  state: PostsListContextState,
+  action: DispatchActionType
+): PostsListContextState => {
   switch (action.type) {
     case LoadingStatuses.Pending:
       return {
@@ -99,16 +107,20 @@ const reducer = (state: PostsListContextState, action: DispatchActionType) => {
       return {
         status: LoadingStatuses.Fulfilled,
         error: null,
-        posts: action.payload as Post[],
+        data: action.payload as ApiResponse<TypePosts>,
       };
     case LoadingStatuses.Rejected:
       return {
-        posts: [],
+        data: { ...initialState.data },
         status: LoadingStatuses.Rejected,
         error: action.payload as string,
       };
     default:
-      return { posts: [], status: LoadingStatuses.Idle, error: null };
+      return {
+        data: { ...initialState.data },
+        status: LoadingStatuses.Idle,
+        error: null,
+      };
   }
 };
 
