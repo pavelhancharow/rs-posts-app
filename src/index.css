@@ -74,14 +74,26 @@ input::placeholder {
 
 button {
   border-radius: 8px;
-  padding: 0.65em 1.8em;
   font-weight: var(--font-weight-50);
-  background-color: var(--blue-600);
   cursor: pointer;
   transition: background-color 0.25s;
-  color: var(--gray-50);
 }
 
-button:disabled {
+button[data-style='primary'],
+button[data-style='danger'] {
+  color: var(--gray-50);
+  padding: 0.65em 1.8em;
+}
+
+button[data-style='primary']:disabled,
+button[data-style='danger']:disabled {
   background-color: var(--gray-400);
+}
+
+button[data-style='primary'] {
+  background-color: var(--blue-600);
+}
+
+button[data-style='danger'] {
+  background-color: var(--red-500);
 }

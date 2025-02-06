@@ -27,7 +27,9 @@ function PostsPage() {
         <PostsListUI left={<PostsList />} right={<Outlet />} />
         <PaginationUi />
       </PostsListContextProvider>
-      <CustomButton onClick={throwAnError}>Throw An Error</CustomButton>
+      <CustomButton onClick={throwAnError} style="danger">
+        Throw An Error
+      </CustomButton>
     </>
   );
 }

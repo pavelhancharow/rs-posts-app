@@ -6,15 +6,24 @@ interface CustomButtonProps {
   children: ReactNode;
   onClick?: () => void;
   disabled?: boolean;
+  style?: ButtonStyle;
 }
+
+type ButtonStyle = 'primary' | 'danger';
 
 function CustomButton({
   type = ButtonTypes.Button,
   disabled = false,
+  style = 'primary',
   ...props
 }: CustomButtonProps) {
   return (
-    <button type={type} onClick={props.onClick} disabled={disabled}>
+    <button
+      type={type}
+      onClick={props.onClick}
+      disabled={disabled}
+      data-style={style}
+    >
       {props.children}
     </button>
   );
