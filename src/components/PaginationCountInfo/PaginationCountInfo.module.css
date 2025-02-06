@@ -1,0 +1,17 @@
+.pagination-count-info > span {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  height: 30px;
+  padding: 0 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.pagination-count-info__total {
+  width: fit-content;
+}
+
+.pagination-count-info__current {
+  width: fit-content;
+}
