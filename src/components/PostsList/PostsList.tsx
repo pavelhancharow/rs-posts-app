@@ -1,5 +1,10 @@
-import { useContext, MouseEvent } from 'react';
-import { useNavigate } from 'react-router';
+import { useContext, MouseEvent, useCallback, useRef, useEffect } from 'react';
+import {
+  SetURLSearchParams,
+  useLocation,
+  useNavigate,
+  useSearchParams,
+} from 'react-router';
 import { PostsListContext } from '../../context/PostsListContext.tsx';
 import { LoadingStatuses } from '../../enums';
 import ErrorComponent from '../ErrorComponent/ErrorComponent.tsx';
@@ -8,19 +13,40 @@ import NoContent from '../NoContent/NoContent.tsx';
 import PostPreview from '../PostPreview/PostPreview.tsx';
 import style from './PostsList.module.css';
 
+type RefSearchParams =
+  | { search: string; setSearchParams: SetURLSearchParams }
+  | undefined;
+
 function PostsList() {
   const context = useContext(PostsListContext);
+  const [, setSearchParams] = useSearchParams();
+  const location = useLocation();
+  const ref = useRef<RefSearchParams>();
   const navigate = useNavigate();
 
-  function handleClick(e: MouseEvent<HTMLLIElement>) {
-    const postId = +e.currentTarget.id;
-    const post = context.data.posts.find((post) => post.id === postId);
+  const handleClick = useCallback(
+    (e: MouseEvent<HTMLLIElement>) => {
+      e.stopPropagation();
+      const postId = +e.currentTarget.id;
 
-    if (!post) return;
+      const post = context.data.posts.find((post) => post.id === postId);
 
-    const state = { userId: post.userId };
-    navigate(`/posts?details=${postId}`, { state });
-  }
+      if (!post) return;
+
+      const state = { userId: post.userId };
+
+      const _searchParams = new URLSearchParams(ref.current?.search);
+      _searchParams.set('details', `${postId}`);
+      ref.current?.setSearchParams(_searchParams);
+
+      navigate(`/posts?${_searchParams}`, { state });
+    },
+    [navigate, context.data.posts]
+  );
+
+  useEffect(() => {
+    ref.current = { search: location.search, setSearchParams };
+  }, [location.search, setSearchParams]);
 
   return (
     <div className={style['posts-list__body']}>

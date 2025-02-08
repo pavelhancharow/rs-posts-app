@@ -7,7 +7,8 @@ import {
 } from 'react';
 import { localStorageService, postsService } from '../api';
 import { LoadingStatuses } from '../enums';
-import { ApiResponse, TypePosts } from '../models';
+import { useSearchQuery } from '../hooks';
+import { ApiResponse, PostsQueryParams, TypePosts } from '../models';
 
 interface PostsListContextState {
   data: ApiResponse<TypePosts>;
@@ -31,13 +32,23 @@ type DispatchActionType = {
   payload?: string | ApiResponse<TypePosts>;
 };
 
+type SearchParamsType = Omit<PostsQueryParams, 'select'>;
+
 const PostsListContext = createContext<PostsListContextState>({
   ...initialState,
 });
 
+const PostsListSearchQueryContext = createContext<SearchParamsType>(
+  localStorageService.searchParams
+);
+
 const PostsListDispatchContext = createContext<Dispatch<DispatchActionType>>(
   () => {}
 );
+
+const PostsListUpdateSearchQueryContext = createContext<
+  (newParams: Partial<SearchParamsType>) => void
+>(() => {});
 
 interface PostsListContextProps {
   children: ReactNode;
@@ -45,18 +56,17 @@ interface PostsListContextProps {
 
 function PostsListContextProvider(props: PostsListContextProps) {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const { query, updateSearchQuery } = useSearchQuery();
 
   useEffect(() => {
     const controller = new AbortController();
     const signal = controller.signal;
 
-    const searchedTerm = localStorageService.searchTerm;
-
     dispatch({ type: LoadingStatuses.Pending });
 
-    const result = searchedTerm
-      ? postsService.getPostsBySearchValue(searchedTerm, signal)
-      : postsService.getAllPosts(signal);
+    const result = query?.q
+      ? postsService.getPostsBySearchValue(query, signal)
+      : postsService.getAllPosts(query, signal);
 
     result
       .then((response) => {
@@ -82,12 +92,16 @@ function PostsListContextProvider(props: PostsListContextProps) {
           '\x1B[34mAbortController:\x1B[30m Fetching data has been aborted',
       });
     };
-  }, []);
+  }, [query]);
 
   return (
     <PostsListContext.Provider value={state}>
       <PostsListDispatchContext.Provider value={dispatch}>
-        {props.children}
+        <PostsListSearchQueryContext.Provider value={query}>
+          <PostsListUpdateSearchQueryContext.Provider value={updateSearchQuery}>
+            {props.children}
+          </PostsListUpdateSearchQueryContext.Provider>
+        </PostsListSearchQueryContext.Provider>
       </PostsListDispatchContext.Provider>
     </PostsListContext.Provider>
   );
@@ -126,4 +140,9 @@ const reducer = (
 
 export default PostsListContextProvider;
 
-export { PostsListContext, PostsListDispatchContext };
+export {
+  PostsListContext,
+  PostsListDispatchContext,
+  PostsListSearchQueryContext,
+  PostsListUpdateSearchQueryContext,
+};
