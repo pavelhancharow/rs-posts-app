@@ -7,13 +7,19 @@ class PostsService {
     search: '/posts/search',
   };
   #defaultQueryParams: PostsQueryParams = {
-    limit: 30,
+    limit: 25,
     skip: 0,
     select: ['id', 'title', 'body', 'reactions', 'tags', 'views', 'userId'],
   };
 
-  async getAllPosts(signal?: AbortSignal): Promise<FetchResponse<TypePosts>> {
-    const params = getURLSearchParams(this.#defaultQueryParams);
+  async getAllPosts(
+    searchParams: Omit<PostsQueryParams, 'select'>,
+    signal?: AbortSignal
+  ): Promise<FetchResponse<TypePosts>> {
+    const params = getURLSearchParams({
+      ...this.#defaultQueryParams,
+      ...searchParams,
+    });
 
     return await fetchFromApi(`${this.#endpoints.posts}?${params}`, signal);
   }
@@ -26,12 +32,12 @@ class PostsService {
   }
 
   async getPostsBySearchValue(
-    searchValue: string,
+    searchParams: Omit<PostsQueryParams, 'select'>,
     signal?: AbortSignal
   ): Promise<FetchResponse<TypePosts>> {
     const params = getURLSearchParams({
       ...this.#defaultQueryParams,
-      q: searchValue,
+      ...searchParams,
     });
 
     return await fetchFromApi(`${this.#endpoints.search}?${params}`, signal);
