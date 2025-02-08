@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { memo, useMemo, useState } from 'react';
 import CommentIcon from '../../assets/comment.svg';
 import EyeIcon from '../../assets/eye.svg';
 import HeartIcon from '../../assets/heart.svg';
@@ -16,6 +16,10 @@ function FullPostContent(props: FullPostContentProps) {
   const handleClick = () => {
     setHide((state) => !state);
   };
+
+  const tags = useMemo(() => {
+    return props.post.tags.map((tag) => `#${tag}`).join(' ');
+  }, [props.post.tags]);
 
   return (
     <div className={style['full-post__content']}>
@@ -40,10 +44,7 @@ function FullPostContent(props: FullPostContentProps) {
         <h4 className={style['full-post__post__title']}>{props.post.title}</h4>
 
         <p className={style['full-post__post__description']}>
-          {props.post.body}{' '}
-          {props.post.tags.length > 0 && (
-            <span>{props.post.tags.map((tag) => `#${tag}`).join(' ')}</span>
-          )}
+          {props.post.body} {tags.length > 0 && <span>{tags}</span>}
         </p>
 
         <div className={style['full-post__post__meta']}>
@@ -109,4 +110,4 @@ function FullPostContent(props: FullPostContentProps) {
   );
 }
 
-export default FullPostContent;
+export default memo(FullPostContent);

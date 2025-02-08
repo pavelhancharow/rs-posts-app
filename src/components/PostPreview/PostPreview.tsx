@@ -1,4 +1,4 @@
-import { MouseEvent } from 'react';
+import { memo, MouseEvent, useMemo } from 'react';
 import { Post } from '../../models';
 import EyeIcon from '../../assets/eye.svg';
 import ThumbUpIcon from '../../assets/thumb_up.svg';
@@ -10,6 +10,10 @@ type PostPreviewProps = Post & {
 };
 
 function PostPreview(props: PostPreviewProps) {
+  const tags = useMemo(() => {
+    return props.tags.map((tag) => `#${tag}`).join(' ');
+  }, [props.tags]);
+
   return (
     <li
       id={`${props.id}`}
@@ -20,10 +24,7 @@ function PostPreview(props: PostPreviewProps) {
 
       <div className={style['post-preview__description']}>
         <p className={style['post-preview__body']}>
-          {props.body}{' '}
-          {props.tags?.length > 0 && (
-            <span>{props.tags.map((tag) => `#${tag}`).join(' ')}</span>
-          )}
+          {props.body} {tags.length > 0 && <span>{tags}</span>}
         </p>
 
         <div className={style['post-preview__info']}>
@@ -45,4 +46,4 @@ function PostPreview(props: PostPreviewProps) {
   );
 }
 
-export default PostPreview;
+export default memo(PostPreview);
