@@ -3,12 +3,12 @@ import PaginationCountInfo from '../PaginationCountInfo/PaginationCountInfo.tsx'
 import PaginationSelect from '../PaginationSelect/PaginationSelect.tsx';
 import style from './PaginationUI.module.css';
 
-function PaginationUi() {
+function PaginationUI() {
   return (
     <div className={style.pagination}>
       <div className={style.pagination__settings}>
-        <PaginationCountInfo />
         <PaginationSelect />
+        <PaginationCountInfo />
       </div>
 
       <PaginationButtons />
@@ -16,4 +16,4 @@ function PaginationUi() {
   );
 }
 
-export default PaginationUi;
+export default PaginationUI;
