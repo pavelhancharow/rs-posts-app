@@ -1,19 +1,20 @@
-import { ChangeEvent, useContext } from 'react';
+import { ChangeEvent, memo, useContext } from 'react';
 import {
-  PostsListContext,
   PostsListSearchQueryContext,
   PostsListUpdateSearchQueryContext,
 } from '../../context/PostsListContext.tsx';
-import { LoadingStatuses } from '../../enums';
 import style from './PaginationSelect.module.css';
 
-function PaginationSelect() {
-  const context = useContext(PostsListContext);
+interface PaginationSelectProps {
+  disabled: boolean;
+}
+
+function PaginationSelect(props: PaginationSelectProps) {
   const searchQuery = useContext(PostsListSearchQueryContext);
   const updateSearchQuery = useContext(PostsListUpdateSearchQueryContext);
 
   const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    updateSearchQuery({ limit: +e.target.value });
+    updateSearchQuery({ limit: +e.target.value, skip: 0 });
   };
 
   return (
@@ -22,7 +23,7 @@ function PaginationSelect() {
       <select
         name="limit"
         value={searchQuery.limit}
-        disabled={context.status === LoadingStatuses.Pending}
+        disabled={props.disabled}
         onChange={handleChange}
       >
         <option value="25">25</option>
@@ -33,4 +34,4 @@ function PaginationSelect() {
   );
 }
 
-export default PaginationSelect;
+export default memo(PaginationSelect);

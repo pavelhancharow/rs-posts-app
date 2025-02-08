@@ -1,14 +1,16 @@
 import { memo, useCallback, useContext, useMemo } from 'react';
 import {
-  PostsListContext,
   PostsListSearchQueryContext,
   PostsListUpdateSearchQueryContext,
 } from '../../context/PostsListContext.tsx';
-import { LoadingStatuses } from '../../enums';
 import style from './PaginationButtons.module.css';
 
-function PaginationButtons() {
-  const context = useContext(PostsListContext);
+interface PaginationButtonsProps {
+  total: number;
+  disabled: boolean;
+}
+
+function PaginationButtons(props: PaginationButtonsProps) {
   const searchQuery = useContext(PostsListSearchQueryContext);
   const updateSearchQuery = useContext(PostsListUpdateSearchQueryContext);
 
@@ -17,11 +19,9 @@ function PaginationButtons() {
     [searchQuery.skip, searchQuery.limit]
   );
   const pages = useMemo(
-    () => Math.ceil(context.data.total / searchQuery.limit),
-    [context.data.total, searchQuery.limit]
+    () => Math.ceil(props.total / searchQuery.limit),
+    [props.total, searchQuery.limit]
   );
-
-  const disabled = context.status === LoadingStatuses.Pending;
 
   const handleClick = useCallback(
     (numberOfPage: number) => {
@@ -46,7 +46,7 @@ function PaginationButtons() {
           key={i}
           data-active={i === page}
           onClick={() => handleClick(i)}
-          disabled={disabled}
+          disabled={props.disabled}
         >
           {i}
         </button>
@@ -54,19 +54,19 @@ function PaginationButtons() {
     }
 
     return buttons;
-  }, [page, pages, disabled]);
+  }, [page, pages, props.disabled, handleClick]);
 
   return (
     <div className={style['pagination-buttons']}>
       <button
-        disabled={disabled || page === 1}
+        disabled={props.disabled || page === 1}
         onClick={() => handleClick(page - 1)}
       >
         {'<'}
       </button>
       {renderedPageButtons}
       <button
-        disabled={disabled || pages === page}
+        disabled={props.disabled || pages === page}
         onClick={() => handleClick(page + 1)}
       >
         {'>'}

@@ -1,11 +1,15 @@
-import { useContext } from 'react';
-import { PostsListContext } from '../../context/PostsListContext.tsx';
+import { memo } from 'react';
 import style from './PaginationCountInfo.module.css';
 
-function PaginationCountInfo() {
-  const context = useContext(PostsListContext);
-  const from = context.data.skip + 1;
-  const to = context.data.skip + context.data.limit;
+interface PaginationCountInfoProps {
+  skip: number;
+  limit: number;
+  total: number;
+}
+
+function PaginationCountInfo(props: PaginationCountInfoProps) {
+  const from = props.skip + 1;
+  const to = props.skip + props.limit;
 
   return (
     <div className={style['pagination-count-info']}>
@@ -14,10 +18,10 @@ function PaginationCountInfo() {
       </span>{' '}
       of{' '}
       <span className={style['pagination-count-info__total']}>
-        {context.data.total}
+        {props.total}
       </span>
     </div>
   );
 }
 
-export default PaginationCountInfo;
+export default memo(PaginationCountInfo);
