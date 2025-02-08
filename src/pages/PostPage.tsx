@@ -2,10 +2,14 @@ import FullPost from '../components/FullPost/FullPost.tsx';
 import FullPostUI from '../components/FullPostUI/FullPostUI.tsx';
 import FullPostContextProvider from '../context/FullPostContext.tsx';
 
-function PostPage() {
+interface PostPageProps {
+  details: string;
+}
+
+function PostPage(props: PostPageProps) {
   return (
     <FullPostUI>
-      <FullPostContextProvider>
+      <FullPostContextProvider postId={props.details}>
         <FullPost />
       </FullPostContextProvider>
     </FullPostUI>

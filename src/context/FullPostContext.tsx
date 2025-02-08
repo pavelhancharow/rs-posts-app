@@ -4,8 +4,9 @@ import {
   ReactNode,
   useEffect,
   useReducer,
+  useRef,
 } from 'react';
-import { useLocation, useSearchParams } from 'react-router';
+import { useLocation } from 'react-router';
 import { commentsService, postsService, usersService } from '../api';
 import { LoadingStatuses } from '../enums';
 import { FullPostCard, FetchResponse, Post, TypeComments } from '../models';
@@ -36,23 +37,26 @@ const FullPostDispatchContext = createContext<Dispatch<DispatchActionType>>(
 );
 
 interface FullPostContextProps {
+  postId: string;
   children: ReactNode;
 }
 
 function FullPostContextProvider(props: FullPostContextProps) {
-  const [searchParam] = useSearchParams();
   const location = useLocation();
   const [state, dispatch] = useReducer(reducer, initialState);
+  const ref = useRef<string | undefined>();
+
+  useEffect(() => {
+    ref.current = location.state?.userId as string;
+  }, [location.state?.userId]);
 
   useEffect(() => {
     const controller = new AbortController();
     const signal = controller.signal;
 
-    const postId = searchParam.get('details') as string;
-
     dispatch({ type: LoadingStatuses.Pending });
 
-    const userId = location.state?.userId;
+    const userId = ref.current;
 
     const handleError = (e: Error) => {
       if (signal.aborted) {
@@ -69,8 +73,8 @@ function FullPostContextProvider(props: FullPostContextProps) {
       Promise<FetchResponse<TypeComments>>,
       Promise<FetchResponse<Post>>,
     ] = [
-      commentsService.getCommentsByPostId(postId, signal),
-      postsService.getPostById(postId, signal),
+      commentsService.getCommentsByPostId(props.postId, signal),
+      postsService.getPostById(props.postId, signal),
     ];
 
     if (!userId) {
@@ -115,7 +119,7 @@ function FullPostContextProvider(props: FullPostContextProps) {
           '\x1B[34mAbortController:\x1B[30m Fetching data has been aborted',
       });
     };
-  }, [location, dispatch, searchParam]);
+  }, [props.postId, dispatch]);
 
   return (
     <FullPostContext.Provider value={state}>
