@@ -18,6 +18,7 @@ function FullPostUI(props: PostCardWrapperProps) {
       <NavLink
         to={{ pathname: '/posts', search: searchParams.toString() }}
         className={style['full-post__close-button']}
+        role="link"
       >
         <img src={CloseIcon} alt="close icon" />
       </NavLink>

@@ -1,15 +1,25 @@
-import { useRef } from 'react';
+import { FormEvent, useContext, useRef } from 'react';
 import { localStorageService } from '../../api';
 import SearchIcon from '../../assets/search.svg';
+import { PostsListUpdateSearchQueryContext } from '../../context/PostsListContext.tsx';
 import SearchBarButton from '../SearchBarButton/SearchBarButton.tsx';
-import SearchBarForm from '../SearchBarForm/SearchBarForm.tsx';
 import styles from './SearchBar.module.css';
 
 function SearchBar() {
+  const updateSearchQuery = useContext(PostsListUpdateSearchQueryContext);
   const ref = useRef<HTMLInputElement>(null);
 
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    updateSearchQuery({
+      q: ref.current?.value.trim(),
+      skip: 0,
+    });
+  };
+
   return (
-    <SearchBarForm ref={ref}>
+    <form onSubmit={handleSubmit} className={styles.form}>
       <label htmlFor="search" className={styles.form__label}>
         <img
           src={SearchIcon}
@@ -26,7 +36,7 @@ function SearchBar() {
         />
       </label>
       <SearchBarButton />
-    </SearchBarForm>
+    </form>
   );
 }
 

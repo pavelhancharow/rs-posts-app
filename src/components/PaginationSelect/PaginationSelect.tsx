@@ -25,6 +25,7 @@ function PaginationSelect(props: PaginationSelectProps) {
         value={searchQuery.limit}
         disabled={props.disabled}
         onChange={handleChange}
+        role="combobox"
       >
         <option value="25">25</option>
         <option value="50">50</option>

@@ -23,6 +23,7 @@ function CustomButton({
       onClick={props.onClick}
       disabled={disabled}
       data-style={style}
+      role="button"
     >
       {props.children}
     </button>

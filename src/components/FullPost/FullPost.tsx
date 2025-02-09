@@ -17,7 +17,8 @@ function FullPost() {
         <ErrorComponent info={context.error} />
       )}
 
-      {context.status === LoadingStatuses.Fulfilled &&
+      {(context.status === LoadingStatuses.Fulfilled ||
+        context.status === LoadingStatuses.Idle) &&
         (context.card ? (
           <FullPostContent {...context.card} />
         ) : (
