@@ -4,7 +4,7 @@ import FullPost from './FullPost.tsx';
 import FullPostContextProvider from '../../context/FullPostContext.tsx';
 
 describe('FullPost', () => {
-  it('Check that a loading indicator is displayed while fetching data', async () => {
+  it('should display a loading indicator while fetching data', async () => {
     render(
       <MemoryRouter>
         <FullPostContextProvider postId="1">

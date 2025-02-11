@@ -34,7 +34,7 @@ describe('PaginationButtons', () => {
     vi.clearAllMocks();
   });
 
-  it('it updates URL query parameter and active status when page changes', async () => {
+  it('should update URL query parameter and active status when page changes', async () => {
     const url = screen.getByTestId('location-display');
     expect(url).toHaveTextContent('?perPage=25&page=1');
 
