@@ -1,12 +1,4 @@
-import {
-  Post,
-  User,
-  Comment,
-  FullPostCard,
-  TypePosts,
-  TypeComments,
-  FetchResponse,
-} from '../models';
+import { Post, User, Comment, FullPostCard } from '../models';
 
 const mockUsers: User[] = [
   {
@@ -70,40 +62,16 @@ const mockComments: Comment[] = [
   },
 ];
 
-const mockFullPostCards: FullPostCard[] = [
-  {
-    post: mockPosts[0],
-    user: mockUsers[0],
-    comments: [mockComments[0], mockComments[1]],
-    totalComments: 2,
-  },
-  {
-    post: mockPosts[1],
-    user: mockUsers[1],
-    comments: [mockComments[2]],
-    totalComments: 1,
-  },
-];
-
-const mockApiResponses = {
-  posts: {
-    total: mockPosts.length,
-    skip: 0,
-    limit: 25,
-    posts: mockPosts,
-  } as FetchResponse<TypePosts>,
-  comments: {
-    total: mockComments.length,
-    skip: 0,
-    limit: 25,
-    comments: mockComments,
-  } as FetchResponse<TypeComments>,
+const mockFullPostCard: FullPostCard = {
+  post: mockPosts[0],
+  user: mockUsers[0],
+  comments: [mockComments[0], mockComments[1]],
+  totalComments: 2,
 };
 
 export default {
   mockComments,
-  mockFullPostCards,
+  mockFullPostCard,
   mockPosts,
   mockUsers,
-  mockApiResponses,
 };

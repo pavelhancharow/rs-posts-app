@@ -28,7 +28,11 @@ export function useSearchQuery() {
   );
 
   useEffect(() => {
-    localStorageService.searchParams = query;
+    const prevQuery = JSON.stringify(localStorageService.searchParams);
+
+    if (prevQuery !== JSON.stringify(query)) {
+      localStorageService.searchParams = query;
+    }
   }, [query]);
 
   useEffect(() => {

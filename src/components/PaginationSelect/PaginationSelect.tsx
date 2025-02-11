@@ -21,11 +21,11 @@ function PaginationSelect(props: PaginationSelectProps) {
     <div className={style['pagination-select']}>
       per Page{' '}
       <select
+        role="select"
         name="limit"
         value={searchQuery.limit}
         disabled={props.disabled}
         onChange={handleChange}
-        role="combobox"
       >
         <option value="25">25</option>
         <option value="50">50</option>

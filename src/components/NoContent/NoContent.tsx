@@ -6,7 +6,7 @@ interface NoContentProps {
 }
 
 function NoContent(props: NoContentProps) {
-  const searchTerm = props.message ?? localStorageService.searchParams.q;
+  const searchTerm = props.message || localStorageService.searchParams.q;
 
   return (
     <div className={style['no-content']}>

@@ -11,10 +11,12 @@ function Fallback(props: FallbackProps) {
       </header>
       <div className={styles.fallback__content}>
         <p>
-          <strong>Error:</strong> {props.error.toString()}
+          <strong>Error:</strong>{' '}
+          {props.error?.message?.toString() || 'Unknown error'}
         </p>
         <p>
-          <strong>Stacktrace:</strong> {props.componentStack}
+          <strong>Stacktrace:</strong>{' '}
+          {props.componentStack || 'No stacktrace available'}
         </p>
       </div>
     </section>
