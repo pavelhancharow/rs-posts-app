@@ -1,8 +1,9 @@
-import { memo, MouseEvent, useMemo } from 'react';
+import { ChangeEvent, memo, MouseEvent, useMemo } from 'react';
 import { Post } from '../../models';
 import EyeIcon from '../../assets/eye.svg';
 import ThumbUpIcon from '../../assets/thumb_up.svg';
 import ThumbDownIcon from '../../assets/thumb_down.svg';
+import CustomCheckbox from '../CustomCheckbox/CustomCheckbox.tsx';
 import style from './PostPreview.module.css';
 
 type PostPreviewProps = Post & {
@@ -14,13 +15,20 @@ function PostPreview(props: PostPreviewProps) {
     return props.tags.map((tag) => `#${tag}`).join(' ');
   }, [props.tags]);
 
+  const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
+    console.log(e.target.checked, e.target.id);
+  };
+
   return (
     <li
       id={`${props.id}`}
       className={style['post-preview']}
       onClick={props.onClick}
     >
-      <h4 className={style['post-preview__title']}>{props.title}</h4>
+      <h4 className={style['post-preview__title']}>
+        <CustomCheckbox onChange={handleCheckboxChange} id={props.id} />
+        {props.title}
+      </h4>
 
       <div className={style['post-preview__description']}>
         <p className={style['post-preview__body']}>

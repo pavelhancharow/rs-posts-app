@@ -15,6 +15,9 @@
 .post-preview__title {
   width: 30%;
   font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
 }
 
 .post-preview__description {
