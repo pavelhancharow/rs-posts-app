@@ -1,6 +1,4 @@
-import { PostsQueryParams } from '../models';
-
-type SearchParamsType = Omit<PostsQueryParams, 'select'>;
+import { PostsSearchParams } from '../models';
 
 class LocalStorageService {
   #searchParams = 'searchParams';
@@ -12,7 +10,7 @@ class LocalStorageService {
     return JSON.parse(data);
   }
 
-  set searchParams(term: SearchParamsType) {
+  set searchParams(term: PostsSearchParams) {
     localStorage.setItem(this.#searchParams, JSON.stringify(term));
   }
 

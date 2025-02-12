@@ -10,3 +10,5 @@ export interface PostsQueryParams extends Pick<BaseResponse, 'limit' | 'skip'> {
 export interface UserQueryParams {
   select: Array<keyof User>;
 }
+
+export type PostsSearchParams = Omit<PostsQueryParams, 'select'>;
