@@ -1,5 +1,5 @@
 import { memo, useCallback, useContext, useMemo } from 'react';
-import { PostsListUpdateSearchQueryContext } from '../../context/PostsListContext.tsx';
+import { SearchQueryDispatchContext } from '../../context';
 import style from './PaginationButtons.module.css';
 
 interface PaginationButtonsProps {
@@ -10,7 +10,7 @@ interface PaginationButtonsProps {
 }
 
 function PaginationButtons(props: PaginationButtonsProps) {
-  const updateSearchQuery = useContext(PostsListUpdateSearchQueryContext);
+  const updateSearchQuery = useContext(SearchQueryDispatchContext);
 
   const page = useMemo(
     () => Math.floor(props.skip / props.limit) + 1,

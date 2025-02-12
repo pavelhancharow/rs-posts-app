@@ -1,12 +1,12 @@
 import { FormEvent, useContext, useRef } from 'react';
-import { localStorageService } from '../../api';
+import { localStorageService } from '../../services';
 import SearchIcon from '../../assets/search.svg';
-import { PostsListUpdateSearchQueryContext } from '../../context/PostsListContext.tsx';
+import { SearchQueryDispatchContext } from '../../context';
 import SearchBarButton from '../SearchBarButton/SearchBarButton.tsx';
 import styles from './SearchBar.module.css';
 
 function SearchBar() {
-  const updateSearchQuery = useContext(PostsListUpdateSearchQueryContext);
+  const updateSearchQuery = useContext(SearchQueryDispatchContext);
   const ref = useRef<HTMLInputElement>(null);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {

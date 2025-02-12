@@ -3,7 +3,7 @@ import { MemoryRouter, Outlet, Route, Routes, useLocation } from 'react-router';
 import { vi } from 'vitest';
 import { renderWithProviders } from '../../utils';
 import FullPostUI from './FullPostUI.tsx';
-import { withQueryParam } from '../../helpers';
+import { withQueryParam } from '../../utils';
 import { userEvent } from '../../__tests__/setup.ts';
 
 describe('FullPostUI', () => {

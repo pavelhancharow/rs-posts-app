@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useLocation, useSearchParams } from 'react-router';
-import { localStorageService } from '../api';
+import { localStorageService } from '../services';
 import { PostsSearchParams } from '../models';
 
 export function useSearchQuery() {

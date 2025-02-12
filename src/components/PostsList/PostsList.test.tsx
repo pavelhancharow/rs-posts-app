@@ -3,16 +3,16 @@ import { MemoryRouter } from 'react-router';
 import { screen, waitFor } from '@testing-library/react';
 import { renderWithProviders } from '../../utils';
 import PostsList from './PostsList.tsx';
-import PostsListContextProvider from '../../context/PostsListContext.tsx';
+import SearchQueryContextProvider from '../../context/SearchQueryContext';
 import { server } from '../../__mocks__/server.ts';
 
 describe('PostsList', () => {
   const renderComponent = () => {
     renderWithProviders(
       <MemoryRouter>
-        <PostsListContextProvider>
+        <SearchQueryContextProvider>
           <PostsList />
-        </PostsListContextProvider>
+        </SearchQueryContextProvider>
       </MemoryRouter>
     );
 

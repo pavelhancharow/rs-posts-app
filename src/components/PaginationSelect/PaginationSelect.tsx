@@ -1,5 +1,5 @@
 import { ChangeEvent, memo, useContext } from 'react';
-import { PostsListUpdateSearchQueryContext } from '../../context/PostsListContext.tsx';
+import { SearchQueryDispatchContext } from '../../context';
 import style from './PaginationSelect.module.css';
 
 interface PaginationSelectProps {
@@ -8,7 +8,7 @@ interface PaginationSelectProps {
 }
 
 function PaginationSelect(props: PaginationSelectProps) {
-  const updateSearchQuery = useContext(PostsListUpdateSearchQueryContext);
+  const updateSearchQuery = useContext(SearchQueryDispatchContext);
 
   const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
     updateSearchQuery({ limit: +e.target.value, skip: 0 });

@@ -3,15 +3,15 @@ import PaginationUI from '../components/PaginationUI/PaginationUI.tsx';
 import PostsListUI from '../components/PostsListUI/PostsListUI.tsx';
 import PostsList from '../components/PostsList/PostsList.tsx';
 import SearchBar from '../components/SearchBar/SearchBar.tsx';
-import PostsListContextProvider from '../context/PostsListContext.tsx';
+import SearchQueryContextProvider from '../context/SearchQueryContext';
 
 function PostsPage() {
   return (
-    <PostsListContextProvider>
+    <SearchQueryContextProvider>
       <SearchBar />
       <PostsListUI left={<PostsList />} right={<Outlet />} />
       <PaginationUI />
-    </PostsListContextProvider>
+    </SearchQueryContextProvider>
   );
 }
 

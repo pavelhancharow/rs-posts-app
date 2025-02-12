@@ -3,11 +3,11 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { renderWithProviders } from '../../utils';
 import PostsList from '../PostsList/PostsList.tsx';
-import PostsListContextProvider from '../../context/PostsListContext.tsx';
+import SearchQueryContextProvider from '../../context/SearchQueryContext';
 import PostPage from '../../pages/PostPage.tsx';
 import mockData from '../../__mocks__/data.ts';
 import PostPreview from './PostPreview.tsx';
-import { withQueryParam } from '../../helpers';
+import { withQueryParam } from '../../utils';
 import { server } from '../../__mocks__/server.ts';
 
 describe('PostPreview', () => {
@@ -16,10 +16,10 @@ describe('PostPreview', () => {
 
     renderWithProviders(
       <MemoryRouter>
-        <PostsListContextProvider>
+        <SearchQueryContextProvider>
           <PostsList />
           <FullPostPage />
-        </PostsListContextProvider>
+        </SearchQueryContextProvider>
       </MemoryRouter>
     );
 

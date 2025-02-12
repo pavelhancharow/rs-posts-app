@@ -1,7 +1,7 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter, useLocation } from 'react-router';
 import PaginationSelect from './PaginationSelect.tsx';
-import PostsListContextProvider from '../../context/PostsListContext.tsx';
+import SearchQueryContextProvider from '../../context/SearchQueryContext';
 import { userEvent } from '../../__tests__/setup.ts';
 
 describe('PaginationSelect', () => {
@@ -21,9 +21,9 @@ describe('PaginationSelect', () => {
 
     render(
       <MemoryRouter initialEntries={['/?perPage=25&page=1']}>
-        <PostsListContextProvider>
+        <SearchQueryContextProvider>
           <PaginationSelect limit={25} disabled={false} />
-        </PostsListContextProvider>
+        </SearchQueryContextProvider>
 
         <LocationDisplay />
       </MemoryRouter>

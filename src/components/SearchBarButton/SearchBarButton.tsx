@@ -1,12 +1,12 @@
 import { QueryStatus } from '@reduxjs/toolkit/query';
 import { useContext } from 'react';
 import { useGetAllPostsQuery } from '../../api';
-import { PostsListSearchQueryContext } from '../../context/PostsListContext.tsx';
+import { SearchQueryContext } from '../../context';
 import { ButtonTypes } from '../../enums';
 import CustomButton from '../CustomButton/CustomButton.tsx';
 
 function SearchBarButton() {
-  const searchQuery = useContext(PostsListSearchQueryContext);
+  const searchQuery = useContext(SearchQueryContext);
   const { status } = useGetAllPostsQuery(searchQuery);
 
   return (

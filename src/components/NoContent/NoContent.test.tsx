@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { localStorageService } from '../../api';
+import { localStorageService } from '../../services';
 import NoContent from './NoContent.tsx';
 
 describe('NoContent', () => {

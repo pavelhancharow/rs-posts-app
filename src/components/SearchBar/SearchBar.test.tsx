@@ -1,9 +1,9 @@
 import { screen, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router';
-import { localStorageService } from '../../api';
+import { localStorageService } from '../../services';
 import { renderWithProviders } from '../../utils';
 import SearchBar from './SearchBar.tsx';
-import PostsListContextProvider from '../../context/PostsListContext.tsx';
+import SearchQueryContextProvider from '../../context/SearchQueryContext';
 import { userEvent } from '../../__tests__/setup.ts';
 
 describe('SearchBar', () => {
@@ -16,9 +16,9 @@ describe('SearchBar', () => {
 
     renderWithProviders(
       <MemoryRouter>
-        <PostsListContextProvider>
+        <SearchQueryContextProvider>
           <SearchBar />
-        </PostsListContextProvider>
+        </SearchQueryContextProvider>
       </MemoryRouter>
     );
   });

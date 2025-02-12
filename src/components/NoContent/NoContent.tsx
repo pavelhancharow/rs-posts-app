@@ -1,4 +1,4 @@
-import { localStorageService } from '../../api';
+import { localStorageService } from '../../services';
 import style from './NoContent.module.css';
 
 interface NoContentProps {

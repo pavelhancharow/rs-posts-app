@@ -1,6 +1,6 @@
 import { MemoryRouter, useLocation } from 'react-router';
 import { render, screen, waitFor } from '@testing-library/react';
-import PostsListContextProvider from '../../context/PostsListContext.tsx';
+import SearchQueryContextProvider from '../../context/SearchQueryContext';
 import PaginationButtons from './PaginationButtons.tsx';
 import { userEvent } from '../../__tests__/setup.ts';
 
@@ -21,9 +21,9 @@ describe('PaginationButtons', () => {
 
     render(
       <MemoryRouter initialEntries={['/posts?perPage=25&page=1']}>
-        <PostsListContextProvider>
+        <SearchQueryContextProvider>
           <PaginationButtons limit={25} skip={0} disabled={false} total={150} />
-        </PostsListContextProvider>
+        </SearchQueryContextProvider>
 
         <LocationDisplay />
       </MemoryRouter>

@@ -3,15 +3,15 @@ import { MemoryRouter } from 'react-router';
 import { expect } from 'vitest';
 import { renderWithProviders } from '../../utils';
 import PaginationUI from './PaginationUI.tsx';
-import PostsListContextProvider from '../../context/PostsListContext.tsx';
+import SearchQueryContextProvider from '../../context/SearchQueryContext';
 
 describe('PaginationUI', () => {
   it('should render pagination controls after initial load', async () => {
     renderWithProviders(
       <MemoryRouter initialEntries={['/posts?page=1&perPage=25']}>
-        <PostsListContextProvider>
+        <SearchQueryContextProvider>
           <PaginationUI />
-        </PostsListContextProvider>
+        </SearchQueryContextProvider>
       </MemoryRouter>
     );
 

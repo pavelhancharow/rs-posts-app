@@ -6,7 +6,7 @@ import {
   useNavigate,
   useSearchParams,
 } from 'react-router';
-import { PostsListSearchQueryContext } from '../../context/PostsListContext.tsx';
+import { SearchQueryContext } from '../../context';
 import { useGetAllPostsQuery } from '../../api';
 import ErrorComponent from '../ErrorComponent/ErrorComponent.tsx';
 import Loader from '../Loader/Loader.tsx';
@@ -23,7 +23,7 @@ function PostsList() {
   const navigate = useNavigate();
   const [, setSearchParams] = useSearchParams();
   const ref = useRef<RefSearchParams>();
-  const searchQuery = useContext(PostsListSearchQueryContext);
+  const searchQuery = useContext(SearchQueryContext);
   const { data, error, status } = useGetAllPostsQuery(searchQuery);
 
   const handleClick = useCallback(
