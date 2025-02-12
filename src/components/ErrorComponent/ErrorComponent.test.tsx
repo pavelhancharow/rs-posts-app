@@ -4,7 +4,9 @@ import ErrorComponent from './ErrorComponent.tsx';
 describe('ErrorComponent', () => {
   it('should render error message with info is provided', () => {
     render(
-      <ErrorComponent info={'There was a problem processing the request'} />
+      <ErrorComponent
+        info={{ message: 'There was a problem processing the request' }}
+      />
     );
 
     expect(
@@ -13,7 +15,7 @@ describe('ErrorComponent', () => {
   });
 
   it('should render error message with info is not provided', () => {
-    render(<ErrorComponent info={null} />);
+    render(<ErrorComponent />);
 
     expect(screen.getByText(/something went wrong/i)).toBeInTheDocument();
   });

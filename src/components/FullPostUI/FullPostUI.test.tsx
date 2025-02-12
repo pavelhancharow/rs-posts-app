@@ -1,8 +1,8 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import { MemoryRouter, Outlet, Route, Routes, useLocation } from 'react-router';
 import { vi } from 'vitest';
+import { renderWithProviders } from '../../utils';
 import FullPostUI from './FullPostUI.tsx';
-import FullPostContextProvider from '../../context/FullPostContext.tsx';
 import { withQueryParam } from '../../helpers';
 import { userEvent } from '../../__tests__/setup.ts';
 
@@ -27,12 +27,8 @@ describe('FullPostUI', () => {
       return <div data-testid="location-display">{location.search}</div>;
     };
 
-    const TestComponent = (props: { details: string }) => {
-      return (
-        <FullPostContextProvider postId={props.details}>
-          <FullPostUI>Full Post Card Content</FullPostUI>
-        </FullPostContextProvider>
-      );
+    const TestComponent = () => {
+      return <FullPostUI>Full Post Card Content</FullPostUI>;
     };
 
     const PostsList = () => {
@@ -46,8 +42,8 @@ describe('FullPostUI', () => {
 
     const FullPost = withQueryParam(TestComponent, 'details');
 
-    render(
-      <MemoryRouter initialEntries={['/posts?details=1&limit=25&skip=0']}>
+    renderWithProviders(
+      <MemoryRouter initialEntries={['/posts?details=1&perPage=25&page=1']}>
         <Routes>
           <Route path="/posts" element={<PostsList />}>
             <Route path="" element={<FullPost />} />
@@ -69,14 +65,14 @@ describe('FullPostUI', () => {
     const { url, button, postsListContent, fullPostCardContent } =
       await renderComponent();
 
-    expect(url).toHaveTextContent('?details=1&limit=25&skip=0');
+    expect(url).toHaveTextContent('?details=1&perPage=25&page=1');
     expect(postsListContent).toBeInTheDocument();
     expect(fullPostCardContent).toBeInTheDocument();
 
     await userEvent.click(button);
 
     await waitFor(() => {
-      expect(url).toHaveTextContent('limit=25&skip=0');
+      expect(url).toHaveTextContent('perPage=25&page=1');
       expect(button).not.toBeInTheDocument();
       expect(fullPostCardContent).not.toBeInTheDocument();
     });

@@ -1,6 +1,7 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router';
 import { localStorageService } from '../../api';
+import { renderWithProviders } from '../../utils';
 import SearchBar from './SearchBar.tsx';
 import PostsListContextProvider from '../../context/PostsListContext.tsx';
 import { userEvent } from '../../__tests__/setup.ts';
@@ -13,7 +14,7 @@ describe('SearchBar', () => {
       q: 'Hello World!',
     });
 
-    render(
+    renderWithProviders(
       <MemoryRouter>
         <PostsListContextProvider>
           <SearchBar />

@@ -22,7 +22,7 @@ describe('PaginationSelect', () => {
     render(
       <MemoryRouter initialEntries={['/?perPage=25&page=1']}>
         <PostsListContextProvider>
-          <PaginationSelect disabled={false} />
+          <PaginationSelect limit={25} disabled={false} />
         </PostsListContextProvider>
 
         <LocationDisplay />

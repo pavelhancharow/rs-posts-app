@@ -1,13 +1,14 @@
 import { http, HttpResponse } from 'msw';
 import { MemoryRouter } from 'react-router';
-import { render, screen, waitFor } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
+import { renderWithProviders } from '../../utils';
 import PostsList from './PostsList.tsx';
 import PostsListContextProvider from '../../context/PostsListContext.tsx';
 import { server } from '../../__mocks__/server.ts';
 
 describe('PostsList', () => {
   const renderComponent = () => {
-    render(
+    renderWithProviders(
       <MemoryRouter>
         <PostsListContextProvider>
           <PostsList />

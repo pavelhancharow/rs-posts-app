@@ -1,6 +1,7 @@
 import { MemoryRouter } from 'react-router';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { renderWithProviders } from '../../utils';
 import PostsList from '../PostsList/PostsList.tsx';
 import PostsListContextProvider from '../../context/PostsListContext.tsx';
 import PostPage from '../../pages/PostPage.tsx';
@@ -13,7 +14,7 @@ describe('PostPreview', () => {
   const renderComponent = async () => {
     const FullPostPage = withQueryParam(PostPage, 'details');
 
-    render(
+    renderWithProviders(
       <MemoryRouter>
         <PostsListContextProvider>
           <PostsList />

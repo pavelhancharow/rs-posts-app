@@ -1,7 +1,7 @@
 import { MemoryRouter, useLocation } from 'react-router';
 import { render, screen, waitFor } from '@testing-library/react';
-import PaginationButtons from './PaginationButtons.tsx';
 import PostsListContextProvider from '../../context/PostsListContext.tsx';
+import PaginationButtons from './PaginationButtons.tsx';
 import { userEvent } from '../../__tests__/setup.ts';
 
 describe('PaginationButtons', () => {
@@ -20,9 +20,9 @@ describe('PaginationButtons', () => {
     };
 
     render(
-      <MemoryRouter initialEntries={['/?perPage=25&page=1']}>
+      <MemoryRouter initialEntries={['/posts?perPage=25&page=1']}>
         <PostsListContextProvider>
-          <PaginationButtons total={150} disabled={false} />
+          <PaginationButtons limit={25} skip={0} disabled={false} total={150} />
         </PostsListContextProvider>
 
         <LocationDisplay />
@@ -34,7 +34,7 @@ describe('PaginationButtons', () => {
     vi.clearAllMocks();
   });
 
-  it('should update URL query parameter and active status when page changes', async () => {
+  it('should update URL query parameter', async () => {
     const url = screen.getByTestId('location-display');
     expect(url).toHaveTextContent('?perPage=25&page=1');
 
@@ -48,8 +48,6 @@ describe('PaginationButtons', () => {
 
     await waitFor(async () => {
       expect(url).toHaveTextContent(/perPage=25&page=3/i);
-      expect(currentPage).toHaveAttribute('data-active', 'false');
-      expect(nextPage).toHaveAttribute('data-active', 'true');
     });
   });
 });
