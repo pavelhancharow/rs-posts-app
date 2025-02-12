@@ -1,18 +1,28 @@
-import { FetchResponse } from '../models';
+import {
+  FetchArgs,
+  FetchBaseQueryError,
+  FetchBaseQueryMeta,
+} from '@reduxjs/toolkit/query';
+import { QueryReturnValue } from '@reduxjs/toolkit/query/react';
 
-const BASE_URL = 'https://dummyjson.com';
+type MaybePromise<T> = T | PromiseLike<T>;
+type FetchArgsType = string | FetchArgs;
+type FetchQueryReturnValue<T> = MaybePromise<
+  QueryReturnValue<T | unknown, FetchBaseQueryError, FetchBaseQueryMeta>
+>;
 
-export async function fetchFromApi<T>(
-  endpoint: string,
-  signal?: AbortSignal
-): Promise<FetchResponse<T>> {
-  const url = URL.parse(endpoint, BASE_URL) as URL;
+type FetchWithBQType = <T>(arg: FetchArgsType) => FetchQueryReturnValue<T>;
 
-  const response = await fetch(url.href, { signal });
+export class FetchService {
+  #fetchWithBQ: FetchWithBQType;
 
-  if (!response.ok) {
-    throw new Error(response.statusText);
+  constructor(fetchWithBQ: FetchWithBQType) {
+    this.#fetchWithBQ = fetchWithBQ;
   }
 
-  return await response.json();
+  fetch<T>(arg: FetchArgsType) {
+    return this.#fetchWithBQ<T>(arg) as MaybePromise<
+      QueryReturnValue<T, FetchBaseQueryError, FetchBaseQueryMeta>
+    >;
+  }
 }

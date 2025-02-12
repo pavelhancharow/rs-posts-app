@@ -1,47 +1,88 @@
-import { fetchFromApi, getURLSearchParams } from '../helpers';
-import { FetchResponse, Post, PostsQueryParams, TypePosts } from '../models';
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { FetchService } from '../helpers';
+import {
+  FetchResponse,
+  FullPostCard,
+  Post,
+  PostsQueryParams,
+  PostsSearchParams,
+  TypeComments,
+  TypePosts,
+  User,
+} from '../models';
 
-class PostsService {
-  #endpoints = {
-    posts: '/posts',
-    search: '/posts/search',
-  };
-  #defaultQueryParams: PostsQueryParams = {
-    limit: 25,
-    skip: 0,
-    select: ['id', 'title', 'body', 'reactions', 'tags', 'views', 'userId'],
-  };
+type PostsResponse = FetchResponse<TypePosts>;
+type PostResponse = FetchResponse<Post>;
+type CommentsResponse = FetchResponse<TypeComments>;
+type UserResponse = FetchResponse<User>;
 
-  async getAllPosts(
-    searchParams: Omit<PostsQueryParams, 'select'>,
-    signal?: AbortSignal
-  ): Promise<FetchResponse<TypePosts>> {
-    const params = getURLSearchParams({
-      ...this.#defaultQueryParams,
-      ...searchParams,
-    });
+const defaultQueryParams: PostsQueryParams = {
+  limit: 25,
+  skip: 0,
+  select: ['id', 'title', 'body', 'reactions', 'tags', 'views', 'userId'],
+};
 
-    return await fetchFromApi(`${this.#endpoints.posts}?${params}`, signal);
-  }
+export const apiPostsSlice = createApi({
+  reducerPath: 'postsApi',
+  baseQuery: fetchBaseQuery({
+    baseUrl: 'https://dummyjson.com',
+    signal: new AbortController().signal,
+  }),
+  tagTypes: ['Posts', 'FullPost'],
+  endpoints: (builder) => ({
+    getAllPosts: builder.query<PostsResponse, PostsSearchParams>({
+      providesTags: ['Posts'],
+      query: (searchParams) => {
+        return {
+          url: searchParams.q ? '/posts/search' : '/posts',
+          method: 'GET',
+          params: {
+            ...defaultQueryParams,
+            ...searchParams,
+          },
+        };
+      },
+    }),
+    getFullPost: builder.query<FullPostCard, { postId: string }>({
+      providesTags: ['FullPost'],
+      queryFn: async ({ postId }, _api, _, fetchWithBQ) => {
+        try {
+          const fetchService = new FetchService(fetchWithBQ);
+          const [postResponse, commentsResponse] = await Promise.all([
+            fetchService.fetch<PostResponse>(`/posts/${postId}`),
+            fetchService.fetch<CommentsResponse>(`/comments/post/${postId}`),
+          ]);
 
-  async getPostById(
-    postId: string | number,
-    signal?: AbortSignal
-  ): Promise<FetchResponse<Post>> {
-    return await fetchFromApi(`${this.#endpoints.posts}/${postId}`, signal);
-  }
+          if (!postResponse.data || !commentsResponse.data) {
+            throw new Error('Post or Comments not found');
+          }
 
-  async getPostsBySearchValue(
-    searchParams: Omit<PostsQueryParams, 'select'>,
-    signal?: AbortSignal
-  ): Promise<FetchResponse<TypePosts>> {
-    const params = getURLSearchParams({
-      ...this.#defaultQueryParams,
-      ...searchParams,
-    });
+          const userResponse = await fetchService.fetch<UserResponse>({
+            url: `/users/${postResponse.data.userId}`,
+            params: {
+              select: ['id', 'firstName', 'lastName', 'username', 'image'],
+            },
+          });
 
-    return await fetchFromApi(`${this.#endpoints.search}?${params}`, signal);
-  }
-}
+          if (!userResponse.data) {
+            throw new Error('User Not Found');
+          }
 
-export const postsService = new PostsService();
+          return {
+            data: {
+              post: postResponse.data,
+              user: userResponse.data,
+              comments: commentsResponse.data.comments,
+              totalComments: commentsResponse.data.total,
+            },
+          };
+        } catch (error) {
+          return { error: error as FetchBaseQueryError };
+        }
+      },
+    }),
+  }),
+});
+
+export const { useGetAllPostsQuery, useGetFullPostQuery } = apiPostsSlice;

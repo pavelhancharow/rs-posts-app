@@ -1,16 +1,13 @@
 import { ChangeEvent, memo, useContext } from 'react';
-import {
-  PostsListSearchQueryContext,
-  PostsListUpdateSearchQueryContext,
-} from '../../context/PostsListContext.tsx';
+import { PostsListUpdateSearchQueryContext } from '../../context/PostsListContext.tsx';
 import style from './PaginationSelect.module.css';
 
 interface PaginationSelectProps {
   disabled: boolean;
+  limit: number;
 }
 
 function PaginationSelect(props: PaginationSelectProps) {
-  const searchQuery = useContext(PostsListSearchQueryContext);
   const updateSearchQuery = useContext(PostsListUpdateSearchQueryContext);
 
   const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
@@ -23,7 +20,7 @@ function PaginationSelect(props: PaginationSelectProps) {
       <select
         role="select"
         name="limit"
-        value={searchQuery.limit}
+        value={props.limit}
         disabled={props.disabled}
         onChange={handleChange}
       >

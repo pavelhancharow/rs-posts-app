@@ -1,10 +1,15 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { apiPostsSlice } from '../api';
 
-const rootReducer = combineReducers({});
+const rootReducer = combineReducers({
+  [apiPostsSlice.reducerPath]: apiPostsSlice.reducer,
+});
 
 export const setupStore = (preloadedState?: Partial<RootState>) => {
   return configureStore({
     reducer: rootReducer,
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware().concat(apiPostsSlice.middleware),
     preloadedState,
   });
 };

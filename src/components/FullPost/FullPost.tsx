@@ -1,26 +1,27 @@
-import { useContext } from 'react';
-import { FullPostContext } from '../../context/FullPostContext.tsx';
-import { LoadingStatuses } from '../../enums';
+import { QueryStatus } from '@reduxjs/toolkit/query';
+import { useGetFullPostQuery } from '../../api';
 import ErrorComponent from '../ErrorComponent/ErrorComponent.tsx';
 import Loader from '../Loader/Loader.tsx';
 import NoContent from '../NoContent/NoContent.tsx';
 import FullPostContent from '../FullPostContent/FullPostContent.tsx';
 import style from './FullPost.module.css';
 
-function FullPost() {
-  const context = useContext(FullPostContext);
+interface FullPostProps {
+  postId: string;
+}
+
+function FullPost(props: FullPostProps) {
+  const { data, error, status } = useGetFullPostQuery({ postId: props.postId });
 
   return (
     <div className={style['full-post__content']}>
-      {context.status === LoadingStatuses.Pending && <Loader />}
-      {context.status === LoadingStatuses.Rejected && (
-        <ErrorComponent info={context.error} />
-      )}
+      {status === QueryStatus.pending && <Loader />}
+      {status === QueryStatus.rejected && <ErrorComponent info={error} />}
 
-      {(context.status === LoadingStatuses.Fulfilled ||
-        context.status === LoadingStatuses.Idle) &&
-        (context.card ? (
-          <FullPostContent {...context.card} />
+      {(status === QueryStatus.fulfilled ||
+        status === QueryStatus.uninitialized) &&
+        (data ? (
+          <FullPostContent {...data} />
         ) : (
           <NoContent message="Post not found" />
         ))}
