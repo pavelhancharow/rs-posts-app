@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import FullPost from '../components/FullPost/FullPost.tsx';
 import FullPostUI from '../components/FullPostUI/FullPostUI.tsx';
 
@@ -13,4 +14,4 @@ function PostPage(props: PostPageProps) {
   );
 }
 
-export default PostPage;
+export default memo(PostPage);
