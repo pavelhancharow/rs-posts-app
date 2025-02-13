@@ -3,13 +3,19 @@ import style from './CustomCheckbox.module.css';
 
 interface CustomCheckboxProps {
   id: number;
+  checked: boolean;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
 function CustomCheckbox(props: CustomCheckboxProps) {
   return (
     <label className={style.checkbox} onClick={(e) => e.stopPropagation()}>
-      <input type="checkbox" id={`${props.id}`} onChange={props.onChange} />
+      <input
+        type="checkbox"
+        id={`${props.id}`}
+        onChange={props.onChange}
+        checked={props.checked}
+      />
       <span>
         <svg
           xmlns="http://www.w3.org/2000/svg"

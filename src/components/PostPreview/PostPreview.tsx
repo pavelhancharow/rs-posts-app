@@ -1,8 +1,19 @@
-import { ChangeEvent, memo, MouseEvent, useMemo } from 'react';
+import {
+  ChangeEvent,
+  memo,
+  MouseEvent,
+  useCallback,
+  useMemo,
+  useRef,
+} from 'react';
+import { useSelector } from 'react-redux';
 import { Post } from '../../models';
 import EyeIcon from '../../assets/eye.svg';
 import ThumbUpIcon from '../../assets/thumb_up.svg';
 import ThumbDownIcon from '../../assets/thumb_down.svg';
+import { getSelectedPostSelector } from '../../store/selected-posts/selector.ts';
+import { selectedPostsActions } from '../../store/selected-posts/slice.ts';
+import { useAppDispatch } from '../../store/store.ts';
 import CustomCheckbox from '../CustomCheckbox/CustomCheckbox.tsx';
 import style from './PostPreview.module.css';
 
@@ -10,23 +21,34 @@ type PostPreviewProps = Post & {
   onClick: (e: MouseEvent<HTMLLIElement>) => void;
 };
 
-function PostPreview(props: PostPreviewProps) {
+function PostPreview({ onClick, ...props }: PostPreviewProps) {
+  const dispatch = useAppDispatch();
+  const ref = useRef(props);
+  const selected = useSelector(getSelectedPostSelector(props.id));
+
   const tags = useMemo(() => {
     return props.tags.map((tag) => `#${tag}`).join(' ');
   }, [props.tags]);
 
-  const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.checked, e.target.id);
-  };
+  const handleChange = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      if (e.target.checked) {
+        dispatch(selectedPostsActions.selectPost(ref.current));
+      } else {
+        dispatch(selectedPostsActions.unselectPost(+e.target.id));
+      }
+    },
+    [dispatch]
+  );
 
   return (
-    <li
-      id={`${props.id}`}
-      className={style['post-preview']}
-      onClick={props.onClick}
-    >
+    <li id={`${props.id}`} className={style['post-preview']} onClick={onClick}>
       <h4 className={style['post-preview__title']}>
-        <CustomCheckbox onChange={handleCheckboxChange} id={props.id} />
+        <CustomCheckbox
+          onChange={handleChange}
+          id={props.id}
+          checked={selected}
+        />
         {props.title}
       </h4>
 

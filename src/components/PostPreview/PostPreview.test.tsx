@@ -1,5 +1,5 @@
 import { MemoryRouter } from 'react-router';
-import { render, screen, waitFor } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { renderWithProviders } from '../../utils';
 import PostsList from '../PostsList/PostsList.tsx';
@@ -32,7 +32,7 @@ describe('PostPreview', () => {
   it('should render the relevant card data', () => {
     const post = mockData.mockPosts[0];
 
-    render(<PostPreview onClick={vi.fn()} {...post} />);
+    renderWithProviders(<PostPreview onClick={vi.fn()} {...post} />);
 
     expect(screen.getByText(post.title)).toBeInTheDocument();
     expect(screen.getByText(post.body)).toBeInTheDocument();
