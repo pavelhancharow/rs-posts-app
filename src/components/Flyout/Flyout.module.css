@@ -1,0 +1,15 @@
+.files {
+  display: flex;
+  align-items: center;
+  background-color: var(--gray-50);
+  padding: 10px 30px;
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 3px 4px 0 rgb(from var(--gray-400) r g b / 54%);
+}
+
+.files > div {
+  display: flex;
+  gap: 30px;
+  margin-left: auto;
+}

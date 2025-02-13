@@ -11,6 +11,7 @@ const selectedPostsSlice = createSlice({
     unselectPost: (state, actions) => {
       return state.filter((post) => post.id !== actions.payload);
     },
+    unselectAllPosts: () => [],
   },
 });
 
