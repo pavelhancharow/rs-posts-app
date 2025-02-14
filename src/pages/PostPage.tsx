@@ -1,6 +1,6 @@
 import { memo } from 'react';
-import FullPost from '../components/FullPost/FullPost.tsx';
-import FullPostUI from '../components/FullPostUI/FullPostUI.tsx';
+import PostDetailsContainer from '../components/PostDetailsContainer/PostDetailsContainer.tsx';
+import PostDetailsLayout from '../components/PostDetailsLayout/PostDetailsLayout.tsx';
 
 interface PostPageProps {
   details: string;
@@ -8,9 +8,9 @@ interface PostPageProps {
 
 function PostPage(props: PostPageProps) {
   return (
-    <FullPostUI>
-      <FullPost postId={props.details} />
-    </FullPostUI>
+    <PostDetailsLayout>
+      <PostDetailsContainer postId={props.details} />
+    </PostDetailsLayout>
   );
 }
 

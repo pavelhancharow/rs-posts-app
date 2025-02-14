@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import { useLocation, useNavigate } from 'react-router';
-import style from './PostsListUI.module.css';
+import style from './PostsListLayout.module.css';
 
 const className = style['posts-list-layout'].concat(' container');
 

@@ -1,15 +1,15 @@
 import { memo } from 'react';
-import style from './PaginationCountInfo.module.css';
+import style from './PaginationRange.module.css';
 
-const className = style['pagination-count-info'].concat(' pagination-layout');
+const className = style['pagination-range'].concat(' pagination-layout');
 
-interface PaginationCountInfoProps {
+interface PaginationRangeProps {
   skip: number;
   limit: number;
   total: number;
 }
 
-function PaginationCountInfo(props: PaginationCountInfoProps) {
+function PaginationRange(props: PaginationRangeProps) {
   const from = props.skip + 1;
   const to = props.skip + props.limit;
 
@@ -23,4 +23,4 @@ function PaginationCountInfo(props: PaginationCountInfoProps) {
   );
 }
 
-export default memo(PaginationCountInfo);
+export default memo(PaginationRange);

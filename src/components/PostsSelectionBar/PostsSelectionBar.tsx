@@ -4,7 +4,7 @@ import { getSelectedPostsSelector } from '../../store/selected-posts/selector.ts
 import { selectedPostsActions } from '../../store/selected-posts/slice.ts';
 import { useAppDispatch } from '../../store/store.ts';
 import CustomButton from '../CustomButton/CustomButton.tsx';
-import style from './Flyout.module.css';
+import style from './PostsSelectionBar.module.css';
 
 const className = style['posts-selection-bar'].concat(' container');
 

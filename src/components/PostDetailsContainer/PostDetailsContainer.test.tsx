@@ -1,13 +1,13 @@
 import { MemoryRouter } from 'react-router';
 import { screen, waitFor } from '@testing-library/react';
 import { renderWithProviders } from '../../utils';
-import FullPost from './FullPost.tsx';
+import PostDetailsContainer from './PostDetailsContainer.tsx';
 
-describe('FullPost', () => {
+describe('PostDetailsContainer', () => {
   it('should display a loading indicator while fetching data', async () => {
     renderWithProviders(
       <MemoryRouter>
-        <FullPost postId="1" />
+        <PostDetailsContainer postId="1" />
       </MemoryRouter>
     );
 

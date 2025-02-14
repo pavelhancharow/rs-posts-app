@@ -1,4 +1,4 @@
-.full-post__content {
+.post-details__container {
   display: grid;
   place-items: center;
   flex-grow: 1;

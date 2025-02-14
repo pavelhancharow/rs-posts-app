@@ -1,15 +1,15 @@
 import { ReactNode } from 'react';
 import { NavLink, useLocation } from 'react-router';
 import CloseIcon from '../../assets/close-icon.svg';
-import style from './FullPostUI.module.css';
+import style from './PostDetailsLayout.module.css';
 
-const className = style['full-post'].concat(' container');
+const className = style['post-details-layout'].concat(' container');
 
-interface PostCardWrapperProps {
+interface PostDetailsLayoutProps {
   children: ReactNode;
 }
 
-function FullPostUI(props: PostCardWrapperProps) {
+function PostDetailsLayout(props: PostDetailsLayoutProps) {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
 
@@ -19,7 +19,7 @@ function FullPostUI(props: PostCardWrapperProps) {
     <div className={className}>
       <NavLink
         to={{ pathname: '/posts', search: searchParams.toString() }}
-        className={style['full-post__close-button']}
+        className={style['post-details-layout__close-button']}
       >
         <img src={CloseIcon} alt="close icon" />
       </NavLink>
@@ -29,4 +29,4 @@ function FullPostUI(props: PostCardWrapperProps) {
   );
 }
 
-export default FullPostUI;
+export default PostDetailsLayout;

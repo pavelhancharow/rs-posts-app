@@ -1,8 +1,8 @@
 import { memo } from 'react';
 import { Outlet } from 'react-router';
-import PostsSelectionBar from '../components/Flyout/PostsSelectionBar.tsx';
-import PaginationUI from '../components/PaginationUI/PaginationUI.tsx';
-import PostsListLayout from '../components/PostsListUI/PostsListUI.tsx';
+import PostsSelectionBar from '../components/PostsSelectionBar/PostsSelectionBar.tsx';
+import PaginationLayout from '../components/PaginationLayout/PaginationLayout.tsx';
+import PostsListLayout from '../components/PostsListLayout/PostsListLayout.tsx';
 import PostsLayout from '../components/PostsLayout/PostsLayout.tsx';
 import PostsList from '../components/PostsList/PostsList.tsx';
 import Toolbar from '../components/Toolbar/Toolbar.tsx';
@@ -19,7 +19,7 @@ function PostsPage() {
           </PostsListLayout>
           <Outlet />
         </PostsLayout>
-        <PaginationUI />
+        <PaginationLayout />
       </SearchQueryContextProvider>
       <PostsSelectionBar />
     </>

@@ -2,11 +2,11 @@ import { screen, waitFor } from '@testing-library/react';
 import { MemoryRouter, Outlet, Route, Routes, useLocation } from 'react-router';
 import { vi } from 'vitest';
 import { renderWithProviders } from '../../utils';
-import FullPostUI from './FullPostUI.tsx';
+import PostDetailsLayout from './PostDetailsLayout.tsx';
 import { withQueryParam } from '../../utils';
 import { userEvent } from '../../__tests__/setup.ts';
 
-describe('FullPostUI', () => {
+describe('PostDetailsLayout', () => {
   beforeEach(() => {
     const mockNavigate = vi.fn();
 
@@ -28,7 +28,7 @@ describe('FullPostUI', () => {
     };
 
     const TestComponent = () => {
-      return <FullPostUI>Full Post Card Content</FullPostUI>;
+      return <PostDetailsLayout>Full Post Card Content</PostDetailsLayout>;
     };
 
     const PostsList = () => {

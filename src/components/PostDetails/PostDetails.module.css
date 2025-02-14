@@ -1,16 +1,16 @@
-.full-post__content {
+.post-details {
   place-self: flex-start;
   padding-top: 10px;
 }
 
-.full-post__user {
+.post-details__user {
   display: flex;
   align-items: center;
   gap: 22px;
   margin-bottom: 25px;
 }
 
-.full-post__user__avatar {
+.post-details__user__avatar {
   width: 60px;
   height: 60px;
   border: 1px solid var(--tertiary);
@@ -18,44 +18,44 @@
   overflow: hidden;
 }
 
-.full-post__user__avatar > img {
+.post-details__user__avatar > img {
   width: inherit;
   height: inherit;
   object-fit: cover;
 }
 
-.full-post__user__bio {
+.post-details__user__bio {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 2px;
 }
 
-.full-post__user__bio > span {
+.post-details__user__bio > span {
   color: var(--tertiary);
 }
 
-.full-post__post {
+.post-details__post {
   display: flex;
   flex-direction: column;
   gap: 15px;
   overflow-y: auto;
 }
 
-.full-post__post__title {
+.post-details__post__title {
   font-weight: var(--secondary-font-weight);
 }
 
-.full-post__post__description > span {
+.post-details__post__description > span {
   color: var(--accent-primary);
 }
 
-.full-post__post__meta {
+.post-details__post__meta {
   display: flex;
   gap: 7px;
 }
 
-.full-post__post__meta__block {
+.post-details__post__meta__block {
   display: flex;
   align-items: center;
   gap: 5px;
@@ -64,33 +64,33 @@
   font-weight: var(--tertiary-font-weight);
 }
 
-.full-post__comments__text {
+.post-details__comments__text {
   display: inline-block;
   color: var(--tertiary);
 }
 
-.full-post__comments__text[data-type='button'] {
+.post-details__comments__text[data-type='button'] {
   margin-bottom: 16px;
   cursor: pointer;
 }
 
-.full-post__comments__list {
+.post-details__comments__list {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
-.full-post__comment {
+.post-details__comment {
   display: flex;
   flex-direction: column;
   gap: 5px;
 }
 
-.full-post__comment__user > b {
+.post-details__comment__user > b {
   font-weight: var(--secondary-font-weight);
 }
 
-.full-post__comment__meta {
+.post-details__comment__meta {
   display: flex;
   align-items: center;
   gap: 3px;

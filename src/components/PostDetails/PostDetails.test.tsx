@@ -1,13 +1,13 @@
 import { render, screen, waitFor } from '@testing-library/react';
-import FullPostContent from './FullPostContent.tsx';
+import PostDetails from './PostDetails.tsx';
 import mockData from '../../__mocks__/data.ts';
 import { userEvent } from '../../__tests__/setup.ts';
 
-describe('FullPostContent', () => {
+describe('PostDetails', () => {
   const card = mockData.mockFullPostCard;
 
   it('should display the detailed card data correctly', () => {
-    render(<FullPostContent {...card} />);
+    render(<PostDetails {...card} />);
 
     expect(screen.getByText(card.post.title)).toBeInTheDocument();
     expect(screen.getByText(card.post.body)).toBeInTheDocument();
@@ -24,7 +24,7 @@ describe('FullPostContent', () => {
   });
 
   it('should display comments when user clicks on a view comments button', async () => {
-    render(<FullPostContent {...card} />);
+    render(<PostDetails {...card} />);
 
     const button = screen.getByText(/view/i);
 

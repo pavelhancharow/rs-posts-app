@@ -3,25 +3,25 @@ import { useGetFullPostQuery } from '../../api';
 import ErrorComponent from '../ErrorComponent/ErrorComponent.tsx';
 import Loader from '../Loader/Loader.tsx';
 import NoContent from '../NoContent/NoContent.tsx';
-import FullPostContent from '../FullPostContent/FullPostContent.tsx';
-import style from './FullPost.module.css';
+import PostDetails from '../PostDetails/PostDetails.tsx';
+import style from './PostDetailsContainer.module.css';
 
-interface FullPostProps {
+interface PostDetailsContainerProps {
   postId: string;
 }
 
-function FullPost(props: FullPostProps) {
+function PostDetailsContainer(props: PostDetailsContainerProps) {
   const { data, error, status } = useGetFullPostQuery({ postId: props.postId });
 
   return (
-    <div className={style['full-post__content']}>
+    <div className={style['post-details__container']}>
       {status === QueryStatus.pending && <Loader />}
       {status === QueryStatus.rejected && <ErrorComponent info={error} />}
 
       {(status === QueryStatus.fulfilled ||
         status === QueryStatus.uninitialized) &&
         (data ? (
-          <FullPostContent {...data} />
+          <PostDetails {...data} />
         ) : (
           <NoContent message="Post not found" />
         ))}
@@ -29,4 +29,4 @@ function FullPost(props: FullPostProps) {
   );
 }
 
-export default FullPost;
+export default PostDetailsContainer;
