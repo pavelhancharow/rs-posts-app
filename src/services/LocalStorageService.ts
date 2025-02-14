@@ -1,8 +1,10 @@
+import { ThemeTypes } from '../enums';
 import { PostsSearchParams } from '../models';
 
 class LocalStorageService {
   #searchParams = 'searchParams';
   #detailsParams = 'detailsParams';
+  #usersTheme = 'userTheme';
 
   get searchParams() {
     const data = localStorage.getItem(this.#searchParams);
@@ -20,6 +22,27 @@ class LocalStorageService {
 
   set detailsParams(term: string) {
     localStorage.setItem(this.#detailsParams, term);
+  }
+
+  get usersTheme() {
+    let theme = localStorage.getItem(this.#usersTheme) as ThemeTypes;
+
+    if (!theme) {
+      if (
+        window.matchMedia &&
+        window.matchMedia('(prefers-color-scheme: dark)').matches
+      ) {
+        theme = ThemeTypes.Dark;
+      } else {
+        theme = ThemeTypes.Light;
+      }
+    }
+
+    return theme;
+  }
+
+  set usersTheme(term: ThemeTypes) {
+    localStorage.setItem(this.#usersTheme, term);
   }
 }
 
