@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { useSelector } from 'react-redux';
-import { getSelectedPostsSelector } from '../../store/selected-posts/selector.ts';
+import { getSelectedPostsForDownloadSelector } from '../../store/selected-posts/selector.ts';
 import { selectedPostsActions } from '../../store/selected-posts/slice.ts';
 import { useAppDispatch } from '../../store/store.ts';
 import CustomButton from '../CustomButton/CustomButton.tsx';
@@ -10,7 +10,7 @@ const className = style['posts-selection-bar'].concat(' container');
 
 function PostsSelectionBar() {
   const ref = useRef<HTMLAnchorElement>(null);
-  const selectedPosts = useSelector(getSelectedPostsSelector);
+  const selectedPosts = useSelector(getSelectedPostsForDownloadSelector);
   const dispatch = useAppDispatch();
 
   if (!selectedPosts.length) return null;

@@ -27,14 +27,12 @@ const ThemeContextProvider = ({ children, root }: ThemeContextProps) => {
   );
 
   useEffect(() => {
-    if (ref.current.parentElement) {
-      if (
-        !ref.current.parentElement.hasAttribute('data-theme') ||
-        theme !== localStorageService.usersTheme
-      ) {
-        localStorageService.usersTheme = theme;
-        ref.current.parentElement.setAttribute('data-theme', theme);
-      }
+    if (
+      !ref.current?.parentElement?.hasAttribute('data-theme') ||
+      theme !== localStorageService.usersTheme
+    ) {
+      localStorageService.usersTheme = theme;
+      ref.current?.parentElement?.setAttribute('data-theme', theme);
     }
   }, [theme]);
 
