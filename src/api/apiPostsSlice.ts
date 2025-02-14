@@ -11,6 +11,7 @@ import {
   TypePosts,
   UserEntity,
 } from '../models';
+import { handleError } from '../utils';
 
 type PostsResponse = FetchResponse<TypePosts>;
 type PostResponse = FetchResponse<PostEntity>;
@@ -55,7 +56,7 @@ export const apiPostsSlice = createApi({
           ]);
 
           if (!postResponse.data || !commentsResponse.data) {
-            throw new Error('PostEntity or Comments not found');
+            handleError('PostEntity or Comments not found');
           }
 
           const userResponse = await fetchService.fetch<UserResponse>({
@@ -66,7 +67,7 @@ export const apiPostsSlice = createApi({
           });
 
           if (!userResponse.data) {
-            throw new Error('UserEntity Not Found');
+            handleError('UserEntity Not Found');
           }
 
           return {
