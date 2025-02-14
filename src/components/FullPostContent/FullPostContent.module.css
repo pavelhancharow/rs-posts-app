@@ -13,7 +13,7 @@
 .full-post__user__avatar {
   width: 60px;
   height: 60px;
-  border: 1px solid var(--gray-400);
+  border: 1px solid var(--tertiary);
   border-radius: 50%;
   overflow: hidden;
 }
@@ -32,23 +32,22 @@
 }
 
 .full-post__user__bio > span {
-  color: var(--gray-400);
+  color: var(--tertiary);
 }
 
 .full-post__post {
   display: flex;
   flex-direction: column;
   gap: 15px;
-  text-align: left;
   overflow-y: auto;
 }
 
 .full-post__post__title {
-  font-weight: 600;
+  font-weight: var(--secondary-font-weight);
 }
 
 .full-post__post__description > span {
-  color: var(--blue-600);
+  color: var(--accent-primary);
 }
 
 .full-post__post__meta {
@@ -61,14 +60,13 @@
   align-items: center;
   gap: 5px;
   font-size: 0.8em;
-  color: var(--gray-400);
-  font-weight: 500;
+  color: var(--tertiary);
+  font-weight: var(--tertiary-font-weight);
 }
 
 .full-post__comments__text {
   display: inline-block;
-  color: var(--gray-400);
-  font-weight: 450;
+  color: var(--tertiary);
 }
 
 .full-post__comments__text[data-type='button'] {
@@ -88,12 +86,8 @@
   gap: 5px;
 }
 
-.full-post__comment__user {
-  color: var(--gray-800);
-}
-
 .full-post__comment__user > b {
-  font-weight: 600;
+  font-weight: var(--secondary-font-weight);
 }
 
 .full-post__comment__meta {
@@ -101,7 +95,7 @@
   align-items: center;
   gap: 3px;
   font-size: 0.85em;
-  color: var(--gray-400);
-  font-weight: 500;
+  color: var(--tertiary);
+  font-weight: var(--tertiary-font-weight);
   padding-left: 1px;
 }

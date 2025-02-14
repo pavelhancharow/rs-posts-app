@@ -6,7 +6,9 @@ import { useAppDispatch } from '../../store/store.ts';
 import CustomButton from '../CustomButton/CustomButton.tsx';
 import style from './Flyout.module.css';
 
-function Flyout() {
+const className = style['posts-selection-bar'].concat(' container');
+
+function PostsSelectionBar() {
   const ref = useRef<HTMLAnchorElement>(null);
   const selectedPosts = useSelector(getSelectedPostsSelector);
   const dispatch = useAppDispatch();
@@ -47,7 +49,7 @@ function Flyout() {
   };
 
   return (
-    <div className={style.files}>
+    <div className={className}>
       <span>Selected Posts: {selectedPosts.length}</span>
       <div>
         <CustomButton onClick={handleUnselect}>Unselect all</CustomButton>
@@ -60,4 +62,4 @@ function Flyout() {
   );
 }
 
-export default Flyout;
+export default PostsSelectionBar;

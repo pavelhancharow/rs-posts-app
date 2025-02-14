@@ -45,6 +45,7 @@ function PaginationButtons(props: PaginationButtonsProps) {
           data-active={i === page}
           onClick={() => handleClick(i)}
           disabled={props.disabled}
+          className="pagination-layout"
         >
           {i}
         </button>
@@ -59,6 +60,7 @@ function PaginationButtons(props: PaginationButtonsProps) {
       <button
         disabled={props.disabled || page === 1}
         onClick={() => handleClick(page - 1)}
+        className="pagination-layout"
       >
         {'<'}
       </button>
@@ -66,6 +68,7 @@ function PaginationButtons(props: PaginationButtonsProps) {
       <button
         disabled={props.disabled || pages === page}
         onClick={() => handleClick(page + 1)}
+        className="pagination-layout"
       >
         {'>'}
       </button>

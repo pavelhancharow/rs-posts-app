@@ -1,6 +1,6 @@
 .loader {
   width: fit-content;
-  font-weight: 500;
+  font-weight: var(--tertiary-font-weight);
   font-family: monospace;
   font-size: 1.5em;
   clip-path: inset(0 3ch 0 0);
@@ -9,7 +9,7 @@
 
 .loader:before {
   content: 'Loading...';
-  color: var(--gray-400);
+  color: var(--tertiary);
 }
 
 @keyframes l4 {

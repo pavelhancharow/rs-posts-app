@@ -1,26 +1,52 @@
 :root {
-  --gray-50: #ffffff;
+  --gray-100: #ffffff;
+  --gray-200: #e1e1e1;
   --gray-400: #8e8e8e;
   --gray-800: #262626;
 
   --blue-600: #4192ef;
 
+  --yellow-400: #ffdd68;
+  --yellow-600: #ffc368;
+
+  --red-200: #cf6679;
   --red-500: #ff3336;
 
   --purple-200: #bec6ff;
-  --purple-600: #7b6fc5;
+  --purple-500: #b388f5;
+  --purple-700: #524b5d;
+  --purple-900: #1f1b24;
 
   --peach-200: #ffd6c3;
-  --pink-300: #fcb5ff;
+  --peach-900: #2e1c0b;
 
-  --font-weight-50: 500;
+  --pink-300: #fcb5ff;
+  --pink-900: #3e022b;
+
+  --primary-font-weight: 400;
+  --secondary-font-weight: 600;
+  --tertiary-font-weight: 500;
 
   --font-family-main: Inter, system-ui, Avenir, Helvetica, Arial;
-  --font-size-main: 16px;
-  --line-height-main: 1.5;
-  --font-weight-main: 400;
-  --color-main: var(--gray-400);
-  --background-main: var(--purple-600);
+
+  --primary: var(--gray-100);
+  --secondary: var(--gray-800);
+  --tertiary: var(--gray-400);
+  --accent-primary: var(--blue-600);
+  --warning: var(--red-500);
+  --disabled: var(--gray-400);
+
+  --hover-list: rgb(from var(--peach-200) r g b / 30%);
+  --container-box-shadow: 0 3px 4px 0 rgb(from var(--tertiary) r g b / 54%);
+  --button-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --button-box-shadow-hover: 0 8px 12px rgba(0, 0, 0, 0.2);
+
+  --background-main: linear-gradient(
+    45deg,
+    var(--peach-200),
+    var(--pink-300),
+    var(--purple-200)
+  );
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -34,23 +60,41 @@
   box-sizing: border-box;
 }
 
+body[data-theme='dark'] {
+  --primary: var(--purple-900);
+  --secondary: var(--gray-200);
+  --accent-primary: var(--purple-500);
+  --warning: var(--red-200);
+  --disabled: var(--purple-700);
+
+  --hover-list: rgb(from var(--gray-400) r g b / 30%);
+  --container-box-shadow: inset 0 -2px 4px 0
+    rgb(from var(--tertiary) r g b / 54%);
+  --button-box-shadow: inset 0 -2px 4px 0px rgba(255, 255, 255, 0.3);
+  --button-box-shadow-hover: inset 0px 0px 8px 2px rgba(255, 255, 255, 0.3);
+
+  --background-main: linear-gradient(
+    45deg,
+    var(--peach-900),
+    var(--pink-900),
+    var(--purple-900)
+  );
+}
+
 body {
   min-width: 320px;
   min-height: 100vh;
   font-family: var(--font-family-main), sans-serif;
-  font-size: var(--font-size-main);
-  font-weight: var(--font-weight-main);
-  color: var(--color-main);
-  background: linear-gradient(
-    45deg,
-    var(--peach-200),
-    var(--pink-300),
-    var(--purple-200)
-  );
+  font-size: 16px;
+  font-weight: var(--primary-font-weight);
+  color: var(--secondary);
+  background: var(--background-main);
+  transition: all 0.3s ease-out;
 }
 
 button,
-input {
+input,
+select {
   font-family: inherit;
   font-size: inherit;
   font-weight: inherit;
@@ -58,6 +102,10 @@ input {
   background: transparent;
   border: none;
   outline: none;
+}
+
+select {
+  width: fit-content;
 }
 
 ul {
@@ -69,31 +117,55 @@ input {
 }
 
 input::placeholder {
-  color: var(--gray-400);
+  color: var(--tertiary);
 }
 
 button {
   border-radius: 8px;
-  font-weight: var(--font-weight-50);
+  font-weight: var(--tertiary-font-weight);
   cursor: pointer;
   transition: background-color 0.25s;
 }
 
 button[data-style='primary'],
 button[data-style='danger'] {
-  color: var(--gray-50);
+  color: var(--primary);
   padding: 0.65em 1.8em;
 }
 
 button[data-style='primary']:disabled,
 button[data-style='danger']:disabled {
-  background-color: var(--gray-400);
+  background-color: var(--disabled);
 }
 
 button[data-style='primary'] {
-  background-color: var(--blue-600);
+  background-color: var(--accent-primary);
 }
 
 button[data-style='danger'] {
-  background-color: var(--red-500);
+  background-color: var(--warning);
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  padding: 20px 30px;
+  width: 100%;
+  background-color: var(--primary);
+  border-radius: 8px;
+  box-shadow: var(--container-box-shadow);
+}
+
+.pagination-layout {
+  display: inline-flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  height: 30px;
+  border-radius: 8px;
+  color: var(--tertiary);
+  background-color: var(--primary);
+  box-shadow: var(--button-box-shadow);
+  overflow: hidden;
+  transition: box-shadow 0.3s ease;
 }

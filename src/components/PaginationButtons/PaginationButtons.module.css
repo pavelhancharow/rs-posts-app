@@ -5,22 +5,11 @@
 }
 
 .pagination-buttons > button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   width: 30px;
-  height: 30px;
-  padding: 0;
-  color: var(--gray-400);
-  background-color: var(--gray-50);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  overflow: hidden;
-  transition: box-shadow 0.3s ease;
 }
 
 .pagination-buttons > button:hover {
-  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--button-box-shadow-hover);
 }
 
 .pagination-buttons > button:disabled {
@@ -28,11 +17,7 @@
   cursor: default;
 }
 
-.pagination-buttons > button:disabled:hover {
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
 .pagination-buttons > button[data-active='true'] {
-  color: var(--gray-50);
-  background-color: var(--blue-600);
+  color: var(--primary);
+  background-color: var(--accent-primary);
 }

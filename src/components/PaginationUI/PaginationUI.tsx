@@ -7,6 +7,8 @@ import PaginationCountInfo from '../PaginationCountInfo/PaginationCountInfo.tsx'
 import PaginationSelect from '../PaginationSelect/PaginationSelect.tsx';
 import style from './PaginationUI.module.css';
 
+const className = style.pagination.concat(' container');
+
 function PaginationUI() {
   const searchQuery = useContext(SearchQueryContext);
   const { data, status } = useGetAllPostsQuery(searchQuery);
@@ -16,7 +18,7 @@ function PaginationUI() {
   if (!data?.posts.length) return null;
 
   return (
-    <div className={style.pagination}>
+    <div className={className}>
       <div className={style.pagination__settings}>
         <PaginationSelect disabled={disabled} limit={searchQuery.limit} />
         <PaginationCountInfo

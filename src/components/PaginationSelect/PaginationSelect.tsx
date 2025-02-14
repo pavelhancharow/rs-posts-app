@@ -23,6 +23,7 @@ function PaginationSelect(props: PaginationSelectProps) {
         value={props.limit}
         disabled={props.disabled}
         onChange={handleChange}
+        className="pagination-layout"
       >
         <option value="25">25</option>
         <option value="50">50</option>

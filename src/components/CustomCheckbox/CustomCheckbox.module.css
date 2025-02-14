@@ -9,7 +9,7 @@
 .checkbox input {
   width: 1.2em;
   height: 1.2em;
-  background-color: rgb(from var(--gray-400) r g b / 20%);
+  background-color: rgb(from var(--tertiary) r g b / 20%);
   border-radius: 4px;
   appearance: none;
   transition-property: all;
@@ -19,7 +19,7 @@
 
 .checkbox span {
   position: absolute;
-  color: var(--gray-50);
+  color: var(--primary);
   opacity: 0;
   top: 50%;
   left: 50%;
@@ -32,7 +32,7 @@
 }
 
 .checkbox input:checked {
-  background-color: var(--blue-600);
+  background-color: var(--accent-primary);
 }
 
 .checkbox input:checked ~ span {
@@ -40,6 +40,6 @@
 }
 
 .checkbox input:checked + span > svg {
-  fill: var(--gray-50);
-  stroke: var(--gray-50);
+  fill: var(--primary);
+  stroke: var(--primary);
 }

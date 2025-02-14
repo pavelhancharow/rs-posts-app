@@ -1,6 +1,6 @@
 .post-preview {
   display: flex;
-  border-bottom: 1px solid var(--gray-400);
+  border-bottom: 1px solid var(--tertiary);
   padding: 20px 0;
   align-items: center;
   gap: 10px;
@@ -8,13 +8,14 @@
 }
 
 .post-preview:hover {
-  background-color: rgb(from var(--peach-200) r g b / 30%);
+  background-color: var(--hover-list);
   cursor: pointer;
 }
 
 .post-preview__title {
   width: 30%;
-  font-weight: 500;
+  font-weight: var(--tertiary-font-weight);
+  text-align: center;
   display: inline-flex;
   align-items: center;
   gap: 5px;
@@ -32,7 +33,7 @@
 }
 
 .post-preview__body > span {
-  color: var(--blue-600);
+  color: var(--accent-primary);
 }
 
 .post-preview__info {
@@ -45,6 +46,6 @@
   align-items: center;
   gap: 5px;
   font-size: 0.8em;
-  color: var(--gray-400);
-  font-weight: 500;
+  color: var(--tertiary);
+  font-weight: var(--tertiary-font-weight);
 }

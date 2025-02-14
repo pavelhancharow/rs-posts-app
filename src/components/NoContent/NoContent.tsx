@@ -15,7 +15,7 @@ function NoContent(props: NoContentProps) {
       ) : (
         <>
           No posts found for your search &#34;
-          <span className={style['no-content_bold']}>{searchTerm}</span>&#34;
+          <b className={style['no-content_bold']}>{searchTerm}</b>&#34;
         </>
       )}
     </div>

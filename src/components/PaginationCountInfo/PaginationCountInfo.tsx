@@ -1,6 +1,8 @@
 import { memo } from 'react';
 import style from './PaginationCountInfo.module.css';
 
+const className = style['pagination-count-info'].concat(' pagination-layout');
+
 interface PaginationCountInfoProps {
   skip: number;
   limit: number;
@@ -12,14 +14,11 @@ function PaginationCountInfo(props: PaginationCountInfoProps) {
   const to = props.skip + props.limit;
 
   return (
-    <div className={style['pagination-count-info']}>
-      <span className={style['pagination-count-info__current']}>
+    <div>
+      <span className={className}>
         {from} - {to}
       </span>{' '}
-      of{' '}
-      <span className={style['pagination-count-info__total']}>
-        {props.total}
-      </span>
+      of <span className={className}>{props.total}</span>
     </div>
   );
 }
