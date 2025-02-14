@@ -1,9 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { Post } from '../../models';
+import { PostEntity } from '../../models';
 
 const selectedPostsSlice = createSlice({
   name: 'selected-posts',
-  initialState: [] as Post[],
+  initialState: [] as PostEntity[],
   reducers: {
     selectPost: (state, actions) => {
       return [...state, actions.payload].sort((a, b) => a.id - b.id);

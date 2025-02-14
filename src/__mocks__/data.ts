@@ -1,6 +1,6 @@
-import { Post, User, Comment, FullPostCard } from '../models';
+import { PostEntity, UserEntity, Comment, PostDetailsEntity } from '../models';
 
-const mockUsers: User[] = [
+const mockUsers: UserEntity[] = [
   {
     id: 1,
     firstName: 'Ava',
@@ -17,7 +17,7 @@ const mockUsers: User[] = [
   },
 ];
 
-const mockPosts: Post[] = [
+const mockPosts: PostEntity[] = [
   {
     id: 1,
     title: 'His mother had always taught him',
@@ -62,7 +62,7 @@ const mockComments: Comment[] = [
   },
 ];
 
-const mockFullPostCard: FullPostCard = {
+const mockPostDetails: PostDetailsEntity = {
   post: mockPosts[0],
   user: mockUsers[0],
   comments: [mockComments[0], mockComments[1]],
@@ -71,7 +71,7 @@ const mockFullPostCard: FullPostCard = {
 
 export default {
   mockComments,
-  mockFullPostCard,
+  mockPostDetails,
   mockPosts,
   mockUsers,
 };

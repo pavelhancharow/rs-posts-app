@@ -7,7 +7,7 @@ import {
   useRef,
 } from 'react';
 import { useSelector } from 'react-redux';
-import { Post } from '../../models';
+import { PostEntity } from '../../models';
 import EyeIcon from '../../assets/eye.svg';
 import ThumbUpIcon from '../../assets/thumb_up.svg';
 import ThumbDownIcon from '../../assets/thumb_down.svg';
@@ -17,7 +17,7 @@ import { useAppDispatch } from '../../store/store.ts';
 import CustomCheckbox from '../CustomCheckbox/CustomCheckbox.tsx';
 import style from './PostPreview.module.css';
 
-type PostPreviewProps = Post & {
+type PostPreviewProps = PostEntity & {
   onClick: (e: MouseEvent<HTMLLIElement>) => void;
 };
 

@@ -1,10 +1,10 @@
-import { Post } from './Post';
-import { User } from './User';
+import { PostEntity } from './PostEntity';
+import { UserEntity } from './UserEntity';
 
 export interface Comment {
   id: number;
   body: string;
-  postId: Post['id'];
+  postId: PostEntity['id'];
   likes: number;
-  user: Pick<User, 'id' | 'username'> & { fullName: string };
+  user: Pick<UserEntity, 'id' | 'username'> & { fullName: string };
 }

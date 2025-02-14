@@ -1,6 +1,6 @@
-import { User } from './User';
+import { UserEntity } from './UserEntity';
 
-export interface Post {
+export interface PostEntity {
   id: number;
   title: string;
   body: string;
@@ -10,5 +10,5 @@ export interface Post {
     dislikes: number;
   };
   views: number;
-  userId: User['id'];
+  userId: UserEntity['id'];
 }

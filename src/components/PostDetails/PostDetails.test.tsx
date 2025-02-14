@@ -4,7 +4,7 @@ import mockData from '../../__mocks__/data.ts';
 import { userEvent } from '../../__tests__/setup.ts';
 
 describe('PostDetails', () => {
-  const card = mockData.mockFullPostCard;
+  const card = mockData.mockPostDetails;
 
   it('should display the detailed card data correctly', () => {
     render(<PostDetails {...card} />);

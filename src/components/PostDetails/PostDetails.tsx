@@ -5,10 +5,10 @@ import HeartIcon from '../../assets/heart.svg';
 import ThumbDownIcon from '../../assets/thumb_down.svg';
 import ThumbUpIcon from '../../assets/thumb_up.svg';
 import UserIcon from '../../assets/user-icon.svg';
-import { FullPostCard } from '../../models';
+import { PostDetailsEntity } from '../../models';
 import style from './PostDetails.module.css';
 
-type PostDetailsProps = FullPostCard;
+type PostDetailsProps = PostDetailsEntity;
 
 function PostDetails(props: PostDetailsProps) {
   const [hide, setHide] = useState(true);

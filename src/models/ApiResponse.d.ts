@@ -1,5 +1,5 @@
-import { Post } from './Post';
-import { FullPostCard } from './FullPostCard';
+import { PostEntity } from './PostEntity';
+import { PostDetailsEntity } from './PostDetailsEntity';
 
 interface BaseResponse {
   total: number;
@@ -7,8 +7,8 @@ interface BaseResponse {
   limit: number;
 }
 
-export type TypePosts = { posts: Post[] };
-export type TypeComments = Pick<FullPostCard, 'comments'>;
+export type TypePosts = { posts: PostEntity[] };
+export type TypeComments = Pick<PostDetailsEntity, 'comments'>;
 
 type ApiResponse<T> = BaseResponse & T;
 type ResponseTypes = TypePosts | TypeComments;

@@ -28,7 +28,7 @@ describe('PostDetailsLayout', () => {
     };
 
     const TestComponent = () => {
-      return <PostDetailsLayout>Full Post Card Content</PostDetailsLayout>;
+      return <PostDetailsLayout>Post Details Content</PostDetailsLayout>;
     };
 
     const PostsList = () => {
@@ -56,25 +56,25 @@ describe('PostDetailsLayout', () => {
     return {
       button: await screen.findByRole('link'),
       postsListContent: screen.getByText('Posts List Content'),
-      fullPostCardContent: screen.getByText('Full Post Card Content'),
+      postDetailsContent: screen.getByText('Post Details Content'),
       url: screen.getByTestId('location-display'),
     };
   };
 
   it('should be hidden component when user clicks the close button', async () => {
-    const { url, button, postsListContent, fullPostCardContent } =
+    const { url, button, postsListContent, postDetailsContent } =
       await renderComponent();
 
     expect(url).toHaveTextContent('?details=1&perPage=25&page=1');
     expect(postsListContent).toBeInTheDocument();
-    expect(fullPostCardContent).toBeInTheDocument();
+    expect(postDetailsContent).toBeInTheDocument();
 
     await userEvent.click(button);
 
     await waitFor(() => {
       expect(url).toHaveTextContent('perPage=25&page=1');
       expect(button).not.toBeInTheDocument();
-      expect(fullPostCardContent).not.toBeInTheDocument();
+      expect(postDetailsContent).not.toBeInTheDocument();
     });
   });
 });

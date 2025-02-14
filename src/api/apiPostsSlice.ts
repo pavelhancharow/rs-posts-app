@@ -3,19 +3,19 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { FetchService } from '../services';
 import {
   FetchResponse,
-  FullPostCard,
-  Post,
+  PostDetailsEntity,
+  PostEntity,
   PostsQueryParams,
   PostsSearchParams,
   TypeComments,
   TypePosts,
-  User,
+  UserEntity,
 } from '../models';
 
 type PostsResponse = FetchResponse<TypePosts>;
-type PostResponse = FetchResponse<Post>;
+type PostResponse = FetchResponse<PostEntity>;
 type CommentsResponse = FetchResponse<TypeComments>;
-type UserResponse = FetchResponse<User>;
+type UserResponse = FetchResponse<UserEntity>;
 
 const defaultQueryParams: PostsQueryParams = {
   limit: 25,
@@ -44,7 +44,7 @@ export const apiPostsSlice = createApi({
         };
       },
     }),
-    getFullPost: builder.query<FullPostCard, { postId: string }>({
+    getFullPost: builder.query<PostDetailsEntity, { postId: string }>({
       providesTags: ['FullPost'],
       queryFn: async ({ postId }, _api, _, fetchWithBQ) => {
         try {
@@ -55,7 +55,7 @@ export const apiPostsSlice = createApi({
           ]);
 
           if (!postResponse.data || !commentsResponse.data) {
-            throw new Error('Post or Comments not found');
+            throw new Error('PostEntity or Comments not found');
           }
 
           const userResponse = await fetchService.fetch<UserResponse>({
@@ -66,7 +66,7 @@ export const apiPostsSlice = createApi({
           });
 
           if (!userResponse.data) {
-            throw new Error('User Not Found');
+            throw new Error('UserEntity Not Found');
           }
 
           return {
