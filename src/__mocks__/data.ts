@@ -1,4 +1,9 @@
-import { PostEntity, UserEntity, Comment, PostDetailsEntity } from '../models';
+import {
+  PostEntity,
+  UserEntity,
+  CommentEntity,
+  PostDetailsEntity,
+} from '../models';
 
 const mockUsers: UserEntity[] = [
   {
@@ -38,7 +43,7 @@ const mockPosts: PostEntity[] = [
   },
 ];
 
-const mockComments: Comment[] = [
+const mockComments: CommentEntity[] = [
   {
     id: 93,
     body: 'These are fabulous ideas!',

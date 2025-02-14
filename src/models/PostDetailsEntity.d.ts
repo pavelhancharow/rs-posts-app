@@ -1,10 +1,10 @@
-import { Comment } from './CommentEntity';
+import { CommentEntity } from './CommentEntity';
 import { PostEntity } from './PostEntity';
 import { UserEntity } from './UserEntity';
 
 export interface PostDetailsEntity {
   post: PostEntity;
   user: UserEntity;
-  comments: Comment[];
+  comments: CommentEntity[];
   totalComments: number;
 }

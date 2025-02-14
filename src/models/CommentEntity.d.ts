@@ -1,7 +1,7 @@
 import { PostEntity } from './PostEntity';
 import { UserEntity } from './UserEntity';
 
-export interface Comment {
+export interface CommentEntity {
   id: number;
   body: string;
   postId: PostEntity['id'];
