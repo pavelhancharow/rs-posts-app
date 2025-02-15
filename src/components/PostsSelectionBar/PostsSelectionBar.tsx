@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { useSelector } from 'react-redux';
-import { getSelectedPostsForDownloadSelector } from '../../store/selected-posts/selector.ts';
+import { getSelectedPostsForDownloadSelector } from '../../store/selected-posts/selectors.ts';
 import { selectedPostsActions } from '../../store/selected-posts/slice.ts';
 import { useAppDispatch } from '../../store/store.ts';
 import CustomButton from '../CustomButton/CustomButton.tsx';

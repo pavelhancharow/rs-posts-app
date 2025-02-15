@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import { useSelector } from 'react-redux';
-import { getSelectedPostsVisibleSelector } from '../../store/selected-posts/selector.ts';
+import { getSelectedPostsVisibleSelector } from '../../store/selected-posts/selectors.ts';
 import style from './PostsLayout.module.css';
 
 interface PostsLayoutProps {

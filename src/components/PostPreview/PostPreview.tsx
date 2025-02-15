@@ -11,7 +11,7 @@ import { PostEntity } from '../../models';
 import EyeIcon from '../../assets/eye.svg';
 import ThumbUpIcon from '../../assets/thumb_up.svg';
 import ThumbDownIcon from '../../assets/thumb_down.svg';
-import { getSelectedPostSelector } from '../../store/selected-posts/selector.ts';
+import { getSelectedPostSelector } from '../../store/selected-posts/selectors.ts';
 import { selectedPostsActions } from '../../store/selected-posts/slice.ts';
 import { useAppDispatch } from '../../store/store.ts';
 import CustomCheckbox from '../CustomCheckbox/CustomCheckbox.tsx';

@@ -2,7 +2,7 @@ import { createSelector } from '@reduxjs/toolkit';
 import { PostEntity } from '../../models';
 import { RootState } from '../store';
 
-export const selectedPostsState = (state: RootState) => state['selected-posts'];
+const selectedPostsState = (state: RootState) => state['selected-posts'];
 
 export const getSelectedPostsForDownloadSelector = createSelector(
   selectedPostsState,
