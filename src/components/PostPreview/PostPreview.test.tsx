@@ -1,10 +1,11 @@
 import { MemoryRouter } from 'react-router';
 import { screen, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { userEvent } from '../../__tests__/setup.ts';
+import { PostEntity } from '../../models';
 import { renderWithProviders } from '../../utils';
+import PostDetailsContainer from '../PostDetailsContainer/PostDetailsContainer.tsx';
 import PostsList from '../PostsList/PostsList.tsx';
 import SearchQueryContextProvider from '../../context/SearchQueryContext';
-import PostPage from '../../pages/PostPage.tsx';
 import mockData from '../../__mocks__/data.ts';
 import PostPreview from './PostPreview.tsx';
 import { withQueryParam } from '../../utils';
@@ -12,13 +13,17 @@ import { server } from '../../__mocks__/server.ts';
 
 describe('PostPreview', () => {
   const renderComponent = async () => {
-    const FullPostPage = withQueryParam(PostPage, 'details');
+    const TestComponent = (props: { details: string }) => {
+      return <PostDetailsContainer postId={props.details} />;
+    };
+
+    const PostDetails = withQueryParam(TestComponent, 'details');
 
     renderWithProviders(
       <MemoryRouter>
         <SearchQueryContextProvider>
           <PostsList />
-          <FullPostPage />
+          <PostDetails />
         </SearchQueryContextProvider>
       </MemoryRouter>
     );
@@ -94,6 +99,30 @@ describe('PostPreview', () => {
           }),
         })
       );
+    });
+  });
+
+  it('should update selected-posts field in redux store if user selects a post', async () => {
+    const post = mockData.mockPosts[1];
+    const previousState: PostEntity[] = [];
+
+    const { store } = renderWithProviders(
+      <PostPreview onClick={vi.fn()} {...post} />,
+      {
+        preloadedState: {
+          'selected-posts': previousState,
+        },
+      }
+    );
+
+    const checkbox = screen.getByRole('checkbox');
+
+    await userEvent.click(checkbox);
+
+    await waitFor(() => {
+      expect(store.getState()['selected-posts']).toEqual([
+        mockData.mockPosts[1],
+      ]);
     });
   });
 });

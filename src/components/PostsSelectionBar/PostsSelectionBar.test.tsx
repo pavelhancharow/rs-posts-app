@@ -41,4 +41,25 @@ describe('PostsSelectionBar', () => {
       expect(button).not.toBeInTheDocument();
     });
   });
+
+  it('should download selected posts list if user clicks download button', async () => {
+    const button = screen.getByText(/download/i);
+    const anchor = screen.getByRole('link');
+
+    expect(anchor).toBeInTheDocument();
+
+    const clickSpy = vi.spyOn(anchor, 'click');
+
+    await userEvent.click(button);
+
+    expect(anchor).toHaveAttribute('download', expect.stringMatching(/.csv/i));
+
+    expect(anchor).toHaveAttribute('href');
+
+    await waitFor(() => {
+      expect(clickSpy).toHaveBeenCalledTimes(1);
+    });
+
+    clickSpy.mockRestore();
+  });
 });

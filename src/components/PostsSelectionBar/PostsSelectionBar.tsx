@@ -22,6 +22,8 @@ function PostsSelectionBar() {
   const handleDownload = () => {
     if (ref.current === null) return;
 
+    const anchor = ref.current;
+
     const csvRows = [
       ['Title', 'Views', 'Likes', 'Dislikes', 'Description'].join(','),
       ...selectedPosts.map((post) =>
@@ -43,9 +45,15 @@ function PostsSelectionBar() {
 
     const fileName = `${count}_${category}.csv`;
 
-    ref.current.setAttribute('href', encodedUri);
-    ref.current.setAttribute('download', fileName);
-    ref.current.click();
+    anchor.setAttribute('href', encodedUri);
+    anchor.setAttribute('download', fileName);
+
+    anchor.click();
+
+    setTimeout(() => {
+      anchor.setAttribute('href', '#');
+      anchor.removeAttribute('download');
+    }, 100);
   };
 
   return (
@@ -53,11 +61,9 @@ function PostsSelectionBar() {
       <span>Selected Posts: {selectedPosts.length}</span>
       <div>
         <CustomButton onClick={handleUnselect}>Unselect all</CustomButton>
-        <CustomButton onClick={handleDownload}>
-          Download
-          <a ref={ref} />
-        </CustomButton>
+        <CustomButton onClick={handleDownload}>Download</CustomButton>
       </div>
+      <a ref={ref} href="#" />
     </div>
   );
 }
