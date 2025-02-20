@@ -11,7 +11,7 @@ import {
   TypePosts,
   UserEntity,
 } from '../models';
-import { handleError } from '../utils';
+import { handleFetchError } from '../utils';
 
 type PostsResponse = FetchResponse<TypePosts>;
 type PostResponse = FetchResponse<PostEntity>;
@@ -55,8 +55,8 @@ export const apiPostsSlice = createApi({
             fetchService.fetch<CommentsResponse>(`/comments/post/${postId}`),
           ]);
 
-          if (postResponse.error) handleError(postResponse.error);
-          if (commentsResponse.error) handleError(commentsResponse.error);
+          if (postResponse.error) handleFetchError(postResponse.error);
+          if (commentsResponse.error) handleFetchError(commentsResponse.error);
 
           const userResponse = await fetchService.fetch<UserResponse>({
             url: `/users/${postResponse.data.userId}`,
@@ -65,7 +65,7 @@ export const apiPostsSlice = createApi({
             },
           });
 
-          if (userResponse.error) handleError(userResponse.error);
+          if (userResponse.error) handleFetchError(userResponse.error);
 
           return {
             data: {
