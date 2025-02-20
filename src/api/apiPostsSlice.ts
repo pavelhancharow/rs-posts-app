@@ -55,9 +55,8 @@ export const apiPostsSlice = createApi({
             fetchService.fetch<CommentsResponse>(`/comments/post/${postId}`),
           ]);
 
-          if (!postResponse.data || !commentsResponse.data) {
-            handleError('PostEntity or Comments not found');
-          }
+          if (postResponse.error) handleError(postResponse.error);
+          if (commentsResponse.error) handleError(commentsResponse.error);
 
           const userResponse = await fetchService.fetch<UserResponse>({
             url: `/users/${postResponse.data.userId}`,
@@ -66,9 +65,7 @@ export const apiPostsSlice = createApi({
             },
           });
 
-          if (!userResponse.data) {
-            handleError('UserEntity Not Found');
-          }
+          if (userResponse.error) handleError(userResponse.error);
 
           return {
             data: {

@@ -1,3 +1,5 @@
-export function handleError(message: string): never {
-  throw new Error(message);
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
+
+export function handleError(error: FetchBaseQueryError): never {
+  throw error.data;
 }
