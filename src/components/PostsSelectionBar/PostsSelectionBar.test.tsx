@@ -43,6 +43,7 @@ describe('PostsSelectionBar', () => {
   });
 
   it('should download selected posts list if user clicks download button', async () => {
+    const spyNavError = vi.spyOn(console, 'error').mockImplementation(vi.fn());
     const button = screen.getByText(/download/i);
     const anchor = screen.getByRole('link');
 
@@ -54,10 +55,14 @@ describe('PostsSelectionBar', () => {
 
     expect(anchor).toHaveAttribute('download', expect.stringMatching(/.csv/i));
 
-    expect(anchor).toHaveAttribute('href');
-
     await waitFor(() => {
       expect(clickSpy).toHaveBeenCalledTimes(1);
+      expect(anchor).toHaveAttribute('href', '#');
+
+      expect(spyNavError).toHaveBeenCalledWith(
+        expect.stringMatching(/Error: Not implemented: navigation/i),
+        undefined
+      );
     });
 
     clickSpy.mockRestore();
