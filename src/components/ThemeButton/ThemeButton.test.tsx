@@ -43,7 +43,6 @@ describe('SearchBar', () => {
     await userEvent.click(input);
 
     await waitFor(() => {
-      screen.debug();
       expect(input).not.toBeChecked();
       expect(setSpy).toHaveBeenCalledTimes(1);
       expect(setSpy).toHaveBeenCalledWith(ThemeTypes.Light);
