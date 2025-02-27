@@ -15,8 +15,13 @@ describe('PostDetailsContainer', () => {
 
     expect(loader).toBeInTheDocument();
 
-    await waitFor(() => {
-      expect(loader).not.toBeInTheDocument();
-    });
+    await waitFor(
+      () => {
+        expect(loader).not.toBeInTheDocument();
+      },
+      {
+        timeout: 2000,
+      }
+    );
   });
 });

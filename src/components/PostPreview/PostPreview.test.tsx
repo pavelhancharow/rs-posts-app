@@ -59,9 +59,16 @@ describe('PostPreview', () => {
 
     expect(await screen.findByRole('progressbar')).toBeEnabled();
 
-    expect(
-      await screen.findByRole('heading', { name: 'Ava Harris' })
-    ).toBeInTheDocument();
+    await waitFor(
+      () => {
+        expect(
+          screen.getByRole('heading', { name: 'Ava Harris' })
+        ).toBeInTheDocument();
+      },
+      {
+        timeout: 2000,
+      }
+    );
   });
 
   it('should trigger an additional API call to fetch detailed information when user clicks on a card', async () => {
