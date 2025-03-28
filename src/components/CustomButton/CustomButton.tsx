@@ -1,30 +1,33 @@
-import { Component, ReactNode } from 'react';
+import { ReactNode } from 'react';
 import { ButtonTypes } from '../../enums';
 
 interface CustomButtonProps {
-  type: ButtonTypes;
+  type?: ButtonTypes;
   children: ReactNode;
   onClick?: () => void;
-  disabled: boolean;
+  disabled?: boolean;
+  style?: ButtonStyle;
 }
 
-class CustomButton extends Component<CustomButtonProps> {
-  static defaultProps: {
-    type: ButtonTypes.Button;
-    disabled: false;
-  };
+type ButtonStyle = 'primary' | 'danger';
 
-  render() {
-    return (
-      <button
-        type={this.props.type}
-        onClick={this.props.onClick}
-        disabled={this.props.disabled}
-      >
-        {this.props.children}
-      </button>
-    );
-  }
+function CustomButton({
+  type = ButtonTypes.Button,
+  disabled = false,
+  style = 'primary',
+  ...props
+}: CustomButtonProps) {
+  return (
+    <button
+      type={type}
+      onClick={props.onClick}
+      disabled={disabled}
+      data-style={style}
+      role="button"
+    >
+      {props.children}
+    </button>
+  );
 }
 
 export default CustomButton;

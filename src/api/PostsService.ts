@@ -1,44 +1,46 @@
-import { getQueryParams } from '../helpers';
-import { PostsQueryParams, PostsResponse } from '../models';
+import { fetchFromApi, getURLSearchParams } from '../helpers';
+import { FetchResponse, Post, PostsQueryParams, TypePosts } from '../models';
 
 class PostsService {
-  #link = 'https://dummyjson.com';
   #endpoints = {
     posts: '/posts',
     search: '/posts/search',
   };
   #defaultQueryParams: PostsQueryParams = {
-    limit: 30,
+    limit: 25,
     skip: 0,
-    select: ['id', 'title', 'body', 'reactions', 'views'],
+    select: ['id', 'title', 'body', 'reactions', 'tags', 'views', 'userId'],
   };
 
-  async getAll(signal?: AbortSignal): Promise<PostsResponse> {
-    const params = getQueryParams({ ...this.#defaultQueryParams });
-
-    const response = await fetch(
-      `${this.#link}${this.#endpoints.posts}?${params}`,
-      { signal }
-    );
-
-    return await response.json();
-  }
-
-  async getBy(
-    searchValue: string,
+  async getAllPosts(
+    searchParams: Omit<PostsQueryParams, 'select'>,
     signal?: AbortSignal
-  ): Promise<PostsResponse> {
-    const params = getQueryParams({
+  ): Promise<FetchResponse<TypePosts>> {
+    const params = getURLSearchParams({
       ...this.#defaultQueryParams,
-      q: searchValue,
+      ...searchParams,
     });
 
-    const response = await fetch(
-      `${this.#link}${this.#endpoints.search}?${params}`,
-      { signal }
-    );
+    return await fetchFromApi(`${this.#endpoints.posts}?${params}`, signal);
+  }
 
-    return await response.json();
+  async getPostById(
+    postId: string | number,
+    signal?: AbortSignal
+  ): Promise<FetchResponse<Post>> {
+    return await fetchFromApi(`${this.#endpoints.posts}/${postId}`, signal);
+  }
+
+  async getPostsBySearchValue(
+    searchParams: Omit<PostsQueryParams, 'select'>,
+    signal?: AbortSignal
+  ): Promise<FetchResponse<TypePosts>> {
+    const params = getURLSearchParams({
+      ...this.#defaultQueryParams,
+      ...searchParams,
+    });
+
+    return await fetchFromApi(`${this.#endpoints.search}?${params}`, signal);
   }
 }
 

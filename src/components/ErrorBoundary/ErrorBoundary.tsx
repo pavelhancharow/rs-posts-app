@@ -1,12 +1,12 @@
 import { Component, ComponentType, ErrorInfo, ReactNode } from 'react';
-import { FallbackProps } from '../../models';
+import { FallbackModel } from '../../models';
 
 interface ErrorBoundaryProps {
-  FallbackComponent: ComponentType<FallbackProps>;
+  FallbackComponent: ComponentType<FallbackModel>;
   children: ReactNode;
 }
 
-interface ErrorBoundaryState extends Partial<FallbackProps> {
+interface ErrorBoundaryState extends Partial<FallbackModel> {
   hasError: boolean;
 }
 

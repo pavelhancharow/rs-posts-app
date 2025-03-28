@@ -1,0 +1,47 @@
+.post-preview {
+  display: flex;
+  border-bottom: 1px solid var(--gray-400);
+  padding: 20px 0;
+  align-items: center;
+  gap: 10px;
+  transition: background-color 0.1s ease-in-out;
+}
+
+.post-preview:hover {
+  background-color: rgb(from var(--peach-200) r g b / 30%);
+  cursor: pointer;
+}
+
+.post-preview__title {
+  width: 30%;
+  font-weight: 500;
+}
+
+.post-preview__description {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.post-preview__body {
+  text-align: left;
+}
+
+.post-preview__body > span {
+  color: var(--blue-600);
+}
+
+.post-preview__info {
+  display: flex;
+  gap: 7px;
+}
+
+.post-preview__info_container {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.8em;
+  color: var(--gray-400);
+  font-weight: 500;
+}
