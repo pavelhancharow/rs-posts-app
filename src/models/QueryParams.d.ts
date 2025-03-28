@@ -1,12 +1,9 @@
-import { Post } from './Post';
-import { User } from './User';
+import { PostEntity } from './PostEntity';
 import { BaseResponse } from './ApiResponse';
 
 export interface PostsQueryParams extends Pick<BaseResponse, 'limit' | 'skip'> {
-  select: Required<Array<keyof Post>>;
+  select: Required<Array<keyof PostEntity>>;
   q?: string;
 }
 
-export interface UserQueryParams {
-  select: Array<keyof User>;
-}
+export type PostsSearchParams = Omit<PostsQueryParams, 'select'>;

@@ -1,22 +1,24 @@
 import { FallbackModel } from '../../models';
-import styles from './Fallback.module.css';
+import style from './Fallback.module.css';
+
+const className = style.fallback.concat(' container');
 
 type FallbackProps = FallbackModel;
 
 function Fallback(props: FallbackProps) {
   return (
-    <section className={styles.fallback}>
+    <section className={className}>
       <header>
         <h3>Oops! An error occurred!</h3>
       </header>
-      <div className={styles.fallback__content}>
-        <p>
-          <strong>Error:</strong> {props.error.toString()}
-        </p>
-        <p>
-          <strong>Stacktrace:</strong> {props.componentStack}
-        </p>
-      </div>
+      <p>
+        <strong>Error:</strong>{' '}
+        {props.error?.message?.toString() || 'Unknown error'}
+      </p>
+      <p>
+        <strong>Stacktrace:</strong>{' '}
+        {props.componentStack || 'No stacktrace available'}
+      </p>
     </section>
   );
 }

@@ -1,4 +1,4 @@
-import { localStorageService } from '../../api';
+import { localStorageService } from '../../services';
 import style from './NoContent.module.css';
 
 interface NoContentProps {
@@ -6,7 +6,7 @@ interface NoContentProps {
 }
 
 function NoContent(props: NoContentProps) {
-  const searchTerm = props.message ?? localStorageService.searchParams.q;
+  const searchTerm = props.message || localStorageService.searchParams.q;
 
   return (
     <div className={style['no-content']}>
@@ -15,7 +15,7 @@ function NoContent(props: NoContentProps) {
       ) : (
         <>
           No posts found for your search &#34;
-          <span className={style['no-content_bold']}>{searchTerm}</span>&#34;
+          <b className={style['no-content_bold']}>{searchTerm}</b>&#34;
         </>
       )}
     </div>

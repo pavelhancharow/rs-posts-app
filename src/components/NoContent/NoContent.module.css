@@ -1,7 +1,7 @@
 .no-content {
-  font-weight: 500;
+  font-weight: var(--tertiary-font-weight);
 }
 
 .no-content_bold {
-  font-weight: 600;
+  font-weight: var(--secondary-font-weight);
 }

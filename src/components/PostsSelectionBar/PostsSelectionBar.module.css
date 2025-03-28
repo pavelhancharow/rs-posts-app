@@ -1,0 +1,10 @@
+.posts-selection-bar {
+  padding: 10px 30px;
+  color: var(--tertiary);
+}
+
+.posts-selection-bar > div {
+  display: flex;
+  gap: 15px;
+  margin-left: auto;
+}

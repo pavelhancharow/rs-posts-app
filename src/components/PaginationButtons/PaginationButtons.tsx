@@ -1,33 +1,31 @@
 import { memo, useCallback, useContext, useMemo } from 'react';
-import {
-  PostsListSearchQueryContext,
-  PostsListUpdateSearchQueryContext,
-} from '../../context/PostsListContext.tsx';
+import { SearchQueryDispatchContext } from '../../context';
 import style from './PaginationButtons.module.css';
 
 interface PaginationButtonsProps {
+  skip: number;
+  limit: number;
   total: number;
   disabled: boolean;
 }
 
 function PaginationButtons(props: PaginationButtonsProps) {
-  const searchQuery = useContext(PostsListSearchQueryContext);
-  const updateSearchQuery = useContext(PostsListUpdateSearchQueryContext);
+  const updateSearchQuery = useContext(SearchQueryDispatchContext);
 
   const page = useMemo(
-    () => Math.floor(searchQuery.skip / searchQuery.limit) + 1,
-    [searchQuery.skip, searchQuery.limit]
+    () => Math.floor(props.skip / props.limit) + 1,
+    [props.skip, props.limit]
   );
   const pages = useMemo(
-    () => Math.ceil(props.total / searchQuery.limit),
-    [props.total, searchQuery.limit]
+    () => Math.ceil(props.total / props.limit),
+    [props.total, props.limit]
   );
 
   const handleClick = useCallback(
     (numberOfPage: number) => {
-      updateSearchQuery({ skip: (numberOfPage - 1) * searchQuery.limit });
+      updateSearchQuery({ skip: (numberOfPage - 1) * props.limit });
     },
-    [updateSearchQuery, searchQuery.limit]
+    [updateSearchQuery, props.limit]
   );
 
   const renderedPageButtons = useMemo(() => {
@@ -47,7 +45,7 @@ function PaginationButtons(props: PaginationButtonsProps) {
           data-active={i === page}
           onClick={() => handleClick(i)}
           disabled={props.disabled}
-          role="button"
+          className="pagination-layout"
         >
           {i}
         </button>
@@ -62,7 +60,7 @@ function PaginationButtons(props: PaginationButtonsProps) {
       <button
         disabled={props.disabled || page === 1}
         onClick={() => handleClick(page - 1)}
-        role="button"
+        className="pagination-layout"
       >
         {'<'}
       </button>
@@ -70,7 +68,7 @@ function PaginationButtons(props: PaginationButtonsProps) {
       <button
         disabled={props.disabled || pages === page}
         onClick={() => handleClick(page + 1)}
-        role="button"
+        className="pagination-layout"
       >
         {'>'}
       </button>

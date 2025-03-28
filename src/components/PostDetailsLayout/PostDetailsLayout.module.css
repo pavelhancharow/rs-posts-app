@@ -1,0 +1,12 @@
+.post-details-layout {
+  position: relative;
+  flex-direction: column;
+  flex: 0 1 30%;
+  padding: 40px 30px 40px;
+}
+
+.post-details-layout__close-button {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}

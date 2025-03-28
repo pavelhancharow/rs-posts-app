@@ -1,0 +1,6 @@
+.post-details__container {
+  display: grid;
+  place-items: center;
+  flex-grow: 1;
+  overflow-y: auto;
+}

@@ -3,9 +3,9 @@
   flex-direction: column;
   line-height: 1.7;
   font-size: 1.15em;
-  color: var(--red-500);
+  color: var(--warning);
 }
 
 .error-container > h2 {
-  font-weight: 400;
+  font-weight: var(--primary-font-weight);
 }

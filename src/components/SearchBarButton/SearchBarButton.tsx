@@ -1,15 +1,18 @@
+import { QueryStatus } from '@reduxjs/toolkit/query';
 import { useContext } from 'react';
-import { PostsListContext } from '../../context/PostsListContext.tsx';
-import { ButtonTypes, LoadingStatuses } from '../../enums';
+import { useGetAllPostsQuery } from '../../api';
+import { SearchQueryContext } from '../../context';
+import { ButtonTypes } from '../../enums';
 import CustomButton from '../CustomButton/CustomButton.tsx';
 
 function SearchBarButton() {
-  const context = useContext(PostsListContext);
+  const searchQuery = useContext(SearchQueryContext);
+  const { status } = useGetAllPostsQuery(searchQuery);
 
   return (
     <CustomButton
       type={ButtonTypes.Submit}
-      disabled={context.status === LoadingStatuses.Pending}
+      disabled={status === QueryStatus.pending}
     >
       Search
     </CustomButton>

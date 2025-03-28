@@ -1,0 +1,11 @@
+.pagination-layout {
+  gap: 10px;
+  justify-content: space-between;
+  padding: 10px 30px;
+  color: var(--tertiary);
+}
+
+.pagination-layout__settings {
+  display: flex;
+  gap: 30px;
+}

@@ -1,7 +1,7 @@
 import { lazy, Suspense } from 'react';
 import { Navigate, Route, Routes } from 'react-router';
 import Loader from './components/Loader/Loader.tsx';
-import { withQueryParam } from './helpers';
+import { withQueryParam } from './utils';
 import './App.css';
 
 const PostsPage = lazy(() => import('./pages/PostsPage.tsx'));

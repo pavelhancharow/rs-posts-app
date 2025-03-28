@@ -1,6 +1,0 @@
-.full-post__content {
-  display: grid;
-  place-items: center;
-  flex-grow: 1;
-  overflow-y: auto;
-}

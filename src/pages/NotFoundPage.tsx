@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router';
 import CustomButton from '../components/CustomButton/CustomButton.tsx';
+import NotFound from '../components/NotFound/NotFound.tsx';
 
 function NotFoundPage() {
   const navigate = useNavigate();
@@ -9,11 +10,9 @@ function NotFoundPage() {
   };
 
   return (
-    <main className="not-found-page">
-      <h2>Oops!</h2>
-      <h3>Sorry, the page you are looking for does not exist.</h3>
+    <NotFound>
       <CustomButton onClick={handleClick}>Go Home</CustomButton>
-    </main>
+    </NotFound>
   );
 }
 

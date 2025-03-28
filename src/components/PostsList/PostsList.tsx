@@ -1,12 +1,13 @@
-import { useContext, MouseEvent, useCallback, useRef, useEffect } from 'react';
+import { QueryStatus } from '@reduxjs/toolkit/query';
+import { MouseEvent, useCallback, useRef, useEffect, useContext } from 'react';
 import {
   SetURLSearchParams,
   useLocation,
   useNavigate,
   useSearchParams,
 } from 'react-router';
-import { PostsListContext } from '../../context/PostsListContext.tsx';
-import { LoadingStatuses } from '../../enums';
+import { SearchQueryContext } from '../../context';
+import { useGetAllPostsQuery } from '../../api';
 import ErrorComponent from '../ErrorComponent/ErrorComponent.tsx';
 import Loader from '../Loader/Loader.tsx';
 import NoContent from '../NoContent/NoContent.tsx';
@@ -18,18 +19,19 @@ type RefSearchParams =
   | undefined;
 
 function PostsList() {
-  const context = useContext(PostsListContext);
-  const [, setSearchParams] = useSearchParams();
   const location = useLocation();
-  const ref = useRef<RefSearchParams>();
   const navigate = useNavigate();
+  const [, setSearchParams] = useSearchParams();
+  const ref = useRef<RefSearchParams>();
+  const searchQuery = useContext(SearchQueryContext);
+  const { data, error, status } = useGetAllPostsQuery(searchQuery);
 
   const handleClick = useCallback(
     (e: MouseEvent<HTMLLIElement>) => {
       e.stopPropagation();
       const postId = +e.currentTarget.id;
 
-      const post = context.data.posts.find((post) => post.id === postId);
+      const post = data?.posts.find((post) => post.id === postId);
 
       if (!post) return;
 
@@ -41,7 +43,7 @@ function PostsList() {
 
       navigate(`/posts?${_searchParams}`, { state });
     },
-    [navigate, context.data.posts]
+    [navigate, data?.posts]
   );
 
   useEffect(() => {
@@ -50,15 +52,13 @@ function PostsList() {
 
   return (
     <div className={style['posts-list__body']}>
-      {context.status === LoadingStatuses.Pending && <Loader />}
-      {context.status === LoadingStatuses.Rejected && (
-        <ErrorComponent info={context.error} />
-      )}
+      {status === QueryStatus.pending && <Loader />}
+      {status === QueryStatus.rejected && <ErrorComponent info={error} />}
 
-      {context.status === LoadingStatuses.Fulfilled &&
-        (context.data.posts.length ? (
+      {status === QueryStatus.fulfilled &&
+        (data?.posts.length ? (
           <ul className={style['posts-list__body__ul']}>
-            {context.data.posts.map((post) => (
+            {data.posts.map((post) => (
               <PostPreview key={post.id} {...post} onClick={handleClick} />
             ))}
           </ul>

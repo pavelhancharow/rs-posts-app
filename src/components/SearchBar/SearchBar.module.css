@@ -1,12 +1,7 @@
 .form {
   display: flex;
   gap: 10px;
-  background-color: var(--gray-50);
-  padding: 10px;
-  width: 100%;
-  justify-content: center;
-  border-radius: 8px;
-  box-shadow: 0 3px 4px 0 rgb(from var(--gray-400) r g b / 54%);
+  margin-left: auto;
 }
 
 .form__label {
@@ -15,7 +10,7 @@
   gap: 6px;
   padding: 0 10px;
   border-radius: 8px;
-  border: 1px solid var(--gray-400);
+  border: 1px solid var(--tertiary);
   overflow: hidden;
 }
 
@@ -25,5 +20,5 @@
 }
 
 .form__input {
-  color: var(--gray-400);
+  color: var(--tertiary);
 }

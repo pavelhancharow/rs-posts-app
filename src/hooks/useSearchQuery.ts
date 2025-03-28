@@ -1,21 +1,19 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useLocation, useSearchParams } from 'react-router';
-import { localStorageService } from '../api';
-import { PostsQueryParams } from '../models';
-
-type useSearchQueryState = Omit<PostsQueryParams, 'select'>;
+import { localStorageService } from '../services';
+import { PostsSearchParams } from '../models';
 
 export function useSearchQuery() {
   const location = useLocation();
   const [, setSearchParams] = useSearchParams();
   const isFirstRender = useRef(true);
 
-  const [query, setQuery] = useState<useSearchQueryState>(() => {
+  const [query, setQuery] = useState<PostsSearchParams>(() => {
     return localStorageService.searchParams;
   });
 
   const updateSearchQuery = useCallback(
-    (newParams: Partial<useSearchQueryState>) => {
+    (newParams: Partial<PostsSearchParams>) => {
       setQuery((prev) => {
         const updated = { ...prev, ...newParams };
 
@@ -28,7 +26,11 @@ export function useSearchQuery() {
   );
 
   useEffect(() => {
-    localStorageService.searchParams = query;
+    const prevQuery = JSON.stringify(localStorageService.searchParams);
+
+    if (prevQuery !== JSON.stringify(query)) {
+      localStorageService.searchParams = query;
+    }
   }, [query]);
 
   useEffect(() => {
