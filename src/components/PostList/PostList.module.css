@@ -1,0 +1,12 @@
+.posts {
+  display: grid;
+  place-items: center;
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+.posts-list {
+  align-self: flex-start;
+  display: flex;
+  flex-direction: column;
+}

@@ -1,0 +1,17 @@
+.fallback {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5em;
+  width: 100%;
+  background-color: var(--gray-50);
+  border-radius: 8px;
+  box-shadow: 0 3px 4px 0 rgb(from var(--gray-400) r g b / 54%);
+  color: var(--red-500);
+  padding: 20px;
+}
+
+.fallback__content {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
